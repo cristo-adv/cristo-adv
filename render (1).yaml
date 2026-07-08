@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: cristo-advogados-associados
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --chdir src --workers 1 --threads 2 --timeout 60 --bind 0.0.0.0:$PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_APP
+        value: app.py
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///database.db
+    disk:
+      name: sqlite-data
+      mountPath: /var/data
+      sizeGB: 1

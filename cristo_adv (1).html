@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cristo Advogados Associados | Excelência Jurídica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0a12;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.5);
+            --glass: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(212, 175, 55, 0.25);
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from { background-position: 0 0; }
+            to { background-position: 50px 50px; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--gold), #6a0dad);
+            border-radius: 10px;
+        }
+
+        /* Glassmorphism Utility */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 18, 0.9);
+            padding: 1rem 5%;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .btn-client {
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--gold);
+            color: var(--gold) !important;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .btn-client:hover {
+            background: var(--gold);
+            color: var(--bg-dark) !important;
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, var(--gold), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--gold);
+        }
+
+        /* Cards Grid */
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .area-card {
+            padding: 2.5rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .area-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .area-card i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Contact Form */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .btn-submit {
+            background: var(--gold);
+            color: var(--bg-dark);
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        /* Login Modal */
+        #login-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 18, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            width: 400px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        /* Admin Panel */
+        #admin-panel {
+            display: none;
+            min-height: 100vh;
+            background: var(--bg-dark);
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0; top: 0; bottom: 0;
+            width: 260px;
+            padding: 2rem 1rem;
+            border-right: 1px solid var(--glass-border);
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 3rem;
+            padding-left: 1rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--glass);
+            color: var(--gold);
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+        }
+
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+        }
+
+        .stat-card h3 {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 0.5rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .badge-active { background: rgba(0, 255, 127, 0.1); color: #00ff7f; }
+        .badge-pending { background: rgba(255, 215, 0, 0.1); color: #ffd700; }
+        .badge-closed { background: rgba(150, 150, 150, 0.1); color: #969696; }
+
+        /* Modals Admin */
+        .modal-admin {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            width: 600px;
+            max-width: 90%;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Toast */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: var(--bg-dark);
+            border: 1px solid var(--gold);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            margin-top: 10px;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .contact-container { grid-template-columns: 1fr; }
+            .sidebar { width: 70px; padding: 1rem 0.5rem; }
+            .sidebar-brand { display: none; }
+            .nav-item span { display: none; }
+            .main-content { margin-left: 70px; }
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <!-- PUBLIC SITE -->
+    <div id="public-site">
+        <nav id="navbar">
+            <a href="#" class="logo">CRISTO ADV</a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#areas">Áreas</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#contato">Contato</a>
+                <a href="#" class="btn-client" onclick="toggleLogin(true)">Área do Cliente</a>
+            </div>
+        </nav>
+
+        <section id="home" class="hero">
+            <h1>Justiça com Visão de Futuro</h1>
+            <p>Soluções jurídicas estratégicas com tecnologia de ponta e atendimento personalizado para o mundo digital.</p>
+            <a href="#contato" class="btn-client" style="text-decoration:none">Agendar Consultoria</a>
+        </section>
+
+        <section id="areas">
+            <h2 class="section-title">Áreas de Atuação</h2>
+            <div class="areas-grid">
+                <div class="area-card glass">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>Direito Civil</h3>
+                    <p>Resolução de conflitos e consultoria preventiva em relações civis.</p>
+                </div>
+                <div class="area-card glass">
+                    <i class="fas fa-building"></i>
+                    <h3>Administrativo</h3>
+                    <p>Atuação junto a órgãos públicos e licitações estratégicas.</p>
+                </div>
+                <div class="area-card glass">
+                    <i class="fas fa-coins"></i>
+                    <h3>Tributário</h3>
+                    <p>Planejamento fiscal e defesa em execuções fiscais complexas.</p>
+                </div>
+                <div class="area-card glass">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Trabalhista</h3>
+                    <p>Defesa de interesses corporativos e direitos do trabalhador.</p>
+                </div>
+                <div class="area-card glass">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Previdenciário</h3>
+                    <p>Consultoria completa para benefícios e aposentadorias.</p>
+                </div>
+                <div class="area-card glass">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Empresarial</h3>
+                    <p>Suporte jurídico para crescimento e segurança de negócios.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="glass" style="margin: 0 10%;">
+            <h2 class="section-title">Sobre o Escritório</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Nossa Missão</h3>
+                    <p>Prover segurança jurídica através da inovação, garantindo que nossos clientes estejam sempre um passo à frente no cenário legal.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Nossa Visão</h3>
+                    <p>Ser referência nacional em advocacia digital e estratégica até 2030, unindo tradição e tecnologia.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato">
+            <h2 class="section-title">Fale Conosco</h2>
+            <div class="contact-container">
+                <div class="glass" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Envie uma Mensagem</h3>
+                    <form class="contact-form" onsubmit="event.preventDefault(); showToast('Mensagem enviada com sucesso!')">
+                        <input type="text" placeholder="Nome Completo" required>
+                        <input type="email" placeholder="E-mail" required>
+                        <input type="text" placeholder="Assunto" required>
+                        <textarea rows="5" placeholder="Sua mensagem..." required></textarea>
+                        <button type="submit" class="btn-submit">ENVIAR AGORA</button>
+                    </form>
+                </div>
+                <div style="padding: 2rem;">
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Contatos</h3>
+                    <p><i class="fas fa-phone" style="color: var(--gold); margin-right: 10px;"></i> (11) 99999-9999</p>
+                    <p><i class="fas fa-envelope" style="color: var(--gold); margin-right: 10px;"></i> contato@cristo.adv.br</p>
+                    <p><i class="fas fa-map-marker-alt" style="color: var(--gold); margin-right: 10px;"></i> Av. Paulista, 1000 - SP</p>
+                    <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                        <i class="fab fa-linkedin fa-2x" style="color: var(--gold)"></i>
+                        <i class="fab fa-instagram fa-2x" style="color: var(--gold)"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer style="padding: 3rem 10%; text-align: center; border-top: 1px solid var(--glass-border);">
+            <p>&copy; 2023 Cristo Advogados Associados. Todos os direitos reservados.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">www.cristo.adv.br</p>
+        </footer>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal">
+        <div class="login-box glass">
+            <h2 style="color: var(--gold); margin-bottom: 2rem;">ÁREA RESTRITA</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <input type="text" id="login-user" placeholder="Usuário" class="glass" style="width:100%; padding:1rem; color:white; border:1px solid var(--glass-border)" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-pass" placeholder="Senha" class="glass" style="width:100%; padding:1rem; color:white; border:1px solid var(--glass-border)" required>
+                </div>
+                <button type="submit" class="btn-submit" style="margin-top: 1rem;">ENTRAR</button>
+                <button type="button" onclick="toggleLogin(false)" style="background:transparent; border:none; color:var(--text-muted); margin-top: 1rem; cursor:pointer;">Voltar ao site</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="admin-panel">
+        <aside class="sidebar">
+            <div class="sidebar-brand">CRISTO ADMIN</div>
+            <div class="nav-item active" onclick="showAdminSection('dashboard')">
+                <i class="fas fa-chart-pie"></i> <span>Dashboard</span>
+            </div>
+            <div class="nav-item" onclick="showAdminSection('clientes')">
+                <i class="fas fa-users"></i> <span>Clientes</span>
+            </div>
+            <div class="nav-item" onclick="showAdminSection('processos')">
+                <i class="fas fa-file-invoice"></i> <span>Processos</span>
+            </div>
+            <div class="nav-item" onclick="showAdminSection('financeiro')">
+                <i class="fas fa-hand-holding-usd"></i> <span>Financeiro</span>
+            </div>
+            <div class="nav-item" onclick="showAdminSection('pessoal')">
+                <i class="fas fa-user-tie"></i> <span>Pessoal</span>
+            </div>
+            <div class="nav-item" onclick="showAdminSection('config')">
+                <i class="fas fa-cog"></i> <span>Configurações</span>
+            </div>
+            <div class="nav-item" onclick="logout()" style="margin-top: auto; color: #ff4444;">
+                <i class="fas fa-sign-out-alt"></i> <span>Sair</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <div id="section-dashboard" class="admin-section">
+                <h2 style="margin-bottom: 2rem;">Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card glass">
+                        <h3>Total Clientes</h3>
+                        <div class="value" id="stat-clients">0</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <h3>Processos Ativos</h3>
+                        <div class="value" id="stat-processes">0</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <h3>Arquivados</h3>
+                        <div class="value" id="stat-archived">0</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <h3>Receita do Mês</h3>
+                        <div class="value" id="stat-revenue">R$ 0,00</div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+                    <div class="glass" style="padding: 1.5rem;">
+                        <h3>Processos por Status</h3>
+                        <canvas id="chart-processes" height="150"></canvas>
+                    </div>
+                    <div class="glass" style="padding: 1.5rem;">
+                        <h3>Contas a Receber</h3>
+                        <div id="receivables-list" style="margin-top: 1rem;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clientes Section -->
+            <div id="section-clientes" class="admin-section hidden">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Gestão de Clientes</h2>
+                    <button class="btn-client" onclick="openModal('modal-cliente')">+ Novo Cliente</button>
+                </div>
+                <div class="glass" style="margin-top: 2rem; padding: 1rem;">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <input type="text" id="search-client" placeholder="Buscar por nome ou CPF..." class="glass" style="padding: 0.5rem; color: white; flex: 1;">
+                        <button class="btn-client" onclick="exportCSV('clientes')">Exportar CSV</button>
+                    </div>
+                    <div class="table-container">
+                        <table id="table-clientes">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CPF/CNPJ</th>
+                                    <th>Telefone</th>
+                                    <th>Tipo</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processos Section -->
+            <div id="section-processos" class="admin-section hidden">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Processos Judiciais</h2>
+                    <button class="btn-client" onclick="openModal('modal-processo')">+ Novo Processo</button>
+                </div>
+                <div class="glass" style="margin-top: 2rem; padding: 1rem;">
+                    <div class="table-container">
+                        <table id="table-processos">
+                            <thead>
+                                <tr>
+                                    <th>Número CNJ</th>
+                                    <th>Cliente</th>
+                                    <th>Área</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financeiro Section -->
+            <div id="section-financeiro" class="admin-section hidden">
+                <h2>Financeiro</h2>
+                <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
+                    <button class="btn-client" onclick="switchFinanceTab('receber')">Contas a Receber</button>
+                    <button class="btn-client" onclick="switchFinanceTab('pagar')">Contas a Pagar</button>
+                </div>
+                <div id="finance-content" class="glass" style="padding: 1rem;">
+                    <table id="table-financeiro">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                                <th>Vencimento</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pessoal Section -->
+            <div id="section-pessoal" class="admin-section hidden">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Equipe & Ponto</h2>
+                    <button class="btn-client" onclick="openModal('modal-pessoal')">+ Novo Colaborador</button>
+                </div>
+                <div class="glass" style="margin-top: 2rem; padding: 1rem;">
+                    <table id="table-pessoal">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Cargo</th>
+                                <th>Último Ponto</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Config Section -->
+            <div id="section-config" class="admin-section hidden">
+                <h2>Configurações do Sistema</h2>
+                <div class="glass" style="margin-top: 2rem; padding: 2rem; max-width: 600px;">
+                    <h3 style="margin-bottom: 1.5rem;">Backup e Segurança</h3>
+                    <button class="btn-submit" style="margin-bottom: 1rem;" onclick="backupData()">Exportar Backup (JSON)</button>
+                    <div class="form-group">
+                        <label>Restaurar Backup</label>
+                        <input type="file" id="restore-file" class="glass" style="width:100%; padding: 0.5rem;" onchange="restoreData(event)">
+                    </div>
+                    <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 2rem 0;">
+                    <h3>Dados do Escritório</h3>
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label>Nome Fantasia</label>
+                        <input type="text" value="Cristo Advogados Associados" class="glass" style="width:100%; padding: 0.5rem; color: white;">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS ADMIN -->
+    <div id="modal-cliente" class="modal-admin">
+        <div class="modal-content glass">
+            <h3 style="margin-bottom: 1.5rem;">Cadastro de Cliente</h3>
+            <form id="form-cliente" onsubmit="saveClient(event)">
+                <input type="hidden" id="client-id">
+                <div class="form-group">
+                    <label>Nome / Razão Social</label>
+                    <input type="text" id="client-name" class="glass" style="width:100%; padding:0.8rem; color:white;" required>
+                </div>
+                <div class="form-group">
+                    <label>CPF / CNPJ</label>
+                    <input type="text" id="client-doc" class="glass" style="width:100%; padding:0.8rem; color:white;" oninput="maskDoc(this)" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefone</label>
+                    <input type="text" id="client-phone" class="glass" style="width:100%; padding:0.8rem; color:white;" oninput="maskPhone(this)" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select id="client-type" class="glass" style="width:100%; padding:0.8rem; color:white; background: #1a1a2a;">
+                        <option value="PF">Pessoa Física</option>
+                        <option value="PJ">Pessoa Jurídica</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn-submit">SALVAR</button>
+                    <button type="button" class="btn-submit" style="background: #444;" onclick="closeModal('modal-cliente')">CANCELAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-processo" class="modal-admin">
+        <div class="modal-content glass">
+            <h3 style="margin-bottom: 1.5rem;">Cadastro de Processo</h3>
+            <form id="form-processo" onsubmit="saveProcess(event)">
+                <div class="form-group">
+                    <label>Número CNJ</label>
+                    <input type="text" id="proc-cnj" class="glass" style="width:100%; padding:0.8rem; color:white;" oninput="maskCNJ(this)" placeholder="0000000-00.0000.0.00.0000" required>
+                </div>
+                <div class="form-group">
+                    <label>Cliente</label>
+                    <select id="proc-client" class="glass" style="width:100%; padding:0.8rem; color:white; background: #1a1a2a;"></select>
+                </div>
+                <div class="form-group">
+                    <label>Área</label>
+                    <select id="proc-area" class="glass" style="width:100%; padding:0.8rem; color:white; background: #1a1a2a;">
+                        <option>Civil</option>
+                        <option>Trabalhista</option>
+                        <option>Tributário</option>
+                        <option>Empresarial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="proc-status" class="glass" style="width:100%; padding:0.8rem; color:white; background: #1a1a2a;">
+                        <option value="Ativo">Ativo</option>
+                        <option value="Suspenso">Suspenso</option>
+                        <option value="Arquivado">Arquivado</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn-submit">SALVAR</button>
+                    <button type="button" class="btn-submit" style="background: #444;" onclick="closeModal('modal-processo')">CANCELAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script>
+        // DATA STORE CLASS
+        class DataStore {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                if (!localStorage.getItem('cristo_db')) {
+                    const initialData = {
+                        clients: [],
+                        processes: [],
+                        finance: [],
+                        staff: [],
+                        config: { name: "Cristo Advogados" }
+                    };
+                    localStorage.setItem('cristo_db', JSON.stringify(initialData));
+                }
+            }
+
+            get() {
+                return JSON.parse(localStorage.getItem('cristo_db'));
+            }
+
+            save(data) {
+                localStorage.setItem('cristo_db', JSON.stringify(data));
+            }
+        }
+
+        const db = new DataStore();
+        let currentFinanceTab = 'receber';
+
+        // NAVIGATION & UI
+        window.onscroll = () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        };
+
+        function toggleLogin(show) {
+            document.getElementById('login-modal').style.display = show ? 'flex' : 'none';
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('login-user').value;
+            const pass = document.getElementById('login-pass').value;
+
+            if (user === 'admin' && pass === 'admin123') {
+                document.getElementById('public-site').classList.add('hidden');
+                document.getElementById('login-modal').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                showAdminSection('dashboard');
+                showToast('Bem-vindo, Administrador');
+            } else {
+                showToast('Credenciais inválidas!');
+            }
+        }
+
+        function logout() {
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('public-site').classList.remove('hidden');
+            showToast('Sessão encerrada');
+        }
+
+        function showAdminSection(sectionId) {
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`section-${sectionId}`).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            if (sectionId === 'dashboard') renderDashboard();
+            if (sectionId === 'clientes') renderClients();
+            if (sectionId === 'processos') renderProcesses();
+            if (sectionId === 'financeiro') renderFinance();
+            if (sectionId === 'pessoal') renderStaff();
+        }
+
+        // CRUD CLIENTES
+        function renderClients() {
+            const data = db.get();
+            const tbody = document.querySelector('#table-clientes tbody');
+            tbody.innerHTML = data.clients.map((c, index) => `
+                <tr>
+                    <td>${c.name}</td>
+                    <td>${c.doc}</td>
+                    <td>${c.phone}</td>
+                    <td>${c.type}</td>
+                    <td>
+                        <i class="fas fa-trash" style="color:#ff4444; cursor:pointer" onclick="deleteClient(${index})"></i>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function saveClient(e) {
+            e.preventDefault();
+            const data = db.get();
+            const newClient = {
+                name: document.getElementById('client-name').value,
+                doc: document.getElementById('client-doc').value,
+                phone: document.getElementById('client-phone').value,
+                type: document.getElementById('client-type').value
+            };
+            data.clients.push(newClient);
+            db.save(data);
+            closeModal('modal-cliente');
+            renderClients();
+            showToast('Cliente cadastrado!');
+            e.target.reset();
+        }
+
+        function deleteClient(index) {
+            if(confirm('Deseja excluir este cliente?')) {
+                const data = db.get();
+                data.clients.splice(index, 1);
+                db.save(data);
+                renderClients();
+            }
+        }
+
+        // CRUD PROCESSOS
+        function renderProcesses() {
+            const data = db.get();
+            const tbody = document.querySelector('#table-processos tbody');
+            
+            // Populate client select in modal
+            const clientSelect = document.getElementById('proc-client');
+            clientSelect.innerHTML = data.clients.map(c => `<option>${c.name}</option>`).join('');
+
+            tbody.innerHTML = data.processes.map((p, index) => `
+                <tr>
+                    <td>${p.cnj}</td>
+                    <td>${p.client}</td>
+                    <td>${p.area}</td>
+                    <td><span class="badge badge-${p.status === 'Ativo' ? 'active' : p.status === 'Suspenso' ? 'pending' : 'closed'}">${p.status}</span></td>
+                    <td>
+                        <i class="fas fa-trash" style="color:#ff4444; cursor:pointer" onclick="deleteProcess(${index})"></i>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function saveProcess(e) {
+            e.preventDefault();
+            const data = db.get();
+            data.processes.push({
+                cnj: document.getElementById('proc-cnj').value,
+                client: document.getElementById('proc-client').value,
+                area: document.getElementById('proc-area').value,
+                status: document.getElementById('proc-status').value
+            });
+            db.save(data);
+            closeModal('modal-processo');
+            renderProcesses();
+            showToast('Processo registrado!');
+        }
+
+        function deleteProcess(index) {
+            const data = db.get();
+            data.processes.splice(index, 1);
+            db.save(data);
+            renderProcesses();
+        }
+
+        // DASHBOARD LOGIC
+        let myChart = null;
+        function renderDashboard() {
+            const data = db.get();
+            document.getElementById('stat-clients').innerText = data.clients.length;
+            document.getElementById('stat-processes').innerText = data.processes.filter(p => p.status === 'Ativo').length;
+            document.getElementById('stat-archived').innerText = data.processes.filter(p => p.status === 'Arquivado').length;
+            
+            const ctx = document.getElementById('chart-processes').getContext('2d');
+            if (myChart) myChart.destroy();
+            
+            const statusCounts = {
+                Ativo: data.processes.filter(p => p.status === 'Ativo').length,
+                Suspenso: data.processes.filter(p => p.status === 'Suspenso').length,
+                Arquivado: data.processes.filter(p => p.status === 'Arquivado').length
+            };
+
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ativos', 'Suspensos', 'Arquivados'],
+                    datasets: [{
+                        label: 'Processos',
+                        data: [statusCounts.Ativo, statusCounts.Suspenso, statusCounts.Arquivado],
+                        backgroundColor: ['#00ff7f', '#ffd700', '#969696'],
+                        borderColor: '#d4af37',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' } } }
+                }
+            });
+        }
+
+        // UTILS
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = msg;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // MASKS
+        function maskDoc(i) {
+            let v = i.value.replace(/\D/g, '');
+            if (v.length <= 11) {
+                i.value = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
+            } else {
+                i.value = v.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "$1.$2.$3/$4-$5");
+            }
+        }
+
+        function maskPhone(i) {
+            let v = i.value.replace(/\D/g, '');
+            i.value = v.replace(/(\d{2})(\d{5})(\d{4})/g, "($1) $2-$3");
+        }
+
+        function maskCNJ(i) {
+            let v = i.value.replace(/\D/g, '');
+            i.value = v.replace(/(\d{7})(\d{2})(\d{4})(\d{1})(\d{2})(\d{4})/g, "$1-$2.$3.$4.$5.$6");
+        }
+
+        function exportCSV(type) {
+            const data = db.get()[type];
+            if (!data.length) return showToast('Sem dados para exportar');
+            
+            let csv = Object.keys(data[0]).join(',') + '\n';
+            data.forEach(row => {
+                csv += Object.values(row).join(',') + '\n';
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('hidden', '');
+            a.setAttribute('href', url);
+            a.setAttribute('download', `${type}_cristo_adv.csv`);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function backupData() {
+            const data = localStorage.getItem('cristo_db');
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'backup_cristo_adv.json';
+            a.click();
+        }
+
+        function restoreData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    db.save(data);
+                    showToast('Backup restaurado com sucesso!');
+                    location.reload();
+                } catch (err) {
+                    showToast('Erro ao ler arquivo!');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add some dummy data if empty for demo
+            const data = db.get();
+            if (data.clients.length === 0) {
+                data.clients.push({ name: "João Silva", doc: "123.456.789-00", phone: "(11) 98888-7777", type: "PF" });
+                data.processes.push({ cnj: "0001234-55.2023.8.26.0100", client: "João Silva", area: "Civil", status: "Ativo" });
+                db.save(data);
+            }
+        });
+    </script>
+</body>
+</html>

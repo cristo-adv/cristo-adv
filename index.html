@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cristo Advogados Associados - Excelência em Direito</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0a1628;
+  --primary-light:#16263f;
+  --secondary:#c9a84c;
+  --secondary-light:#d9bd6e;
+  --bg:#f5f7fa;
+  --card:#ffffff;
+  --text:#1a1a2e;
+  --text-sec:#6b7280;
+  --success:#10b981;
+  --warning:#f59e0b;
+  --danger:#ef4444;
+  --border:#e5e7eb;
+  --shadow:0 2px 8px rgba(10,22,40,.08);
+  --shadow-lg:0 10px 30px rgba(10,22,40,.15);
+  --radius:10px;
+  --sidebar-w:260px;
+  --sidebar-w-collapsed:72px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;color:var(--primary)}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+input,select,textarea{font-family:inherit;outline:none}
+
+/* ===== TOAST ===== */
+#toastWrap{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+.toast{min-width:280px;padding:14px 18px;border-radius:8px;background:#fff;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;animation:slideIn .3s ease;border-left:4px solid var(--secondary)}
+.toast.success{border-left-color:var(--success)}
+.toast.error{border-left-color:var(--danger)}
+.toast.warning{border-left-color:var(--warning)}
+.toast i{font-size:18px}
+.toast.success i{color:var(--success)}
+.toast.error i{color:var(--danger)}
+.toast.warning i{color:var(--warning)}
+.toast.info i{color:var(--secondary)}
+@keyframes slideIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ===== PUBLIC SITE ===== */
+.site-header{position:fixed;top:0;left:0;right:0;background:rgba(10,22,40,.98);backdrop-filter:blur(8px);z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.site-header .inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.site-logo{display:flex;align-items:center;gap:12px;color:#fff}
+.site-logo .mark{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--secondary),var(--secondary-light));display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:20px;font-weight:900}
+.site-logo .txt h1{color:#fff;font-size:18px;line-height:1.1;font-family:'Playfair Display',serif}
+.site-logo .txt span{color:var(--secondary);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.site-nav{display:flex;align-items:center;gap:28px}
+.site-nav a{color:#d1d5db;font-size:14px;font-weight:500;transition:.2s;position:relative}
+.site-nav a:hover{color:var(--secondary)}
+.btn-client{background:var(--secondary);color:var(--primary)!important;padding:9px 18px;border-radius:6px;font-weight:600;transition:.2s}
+.btn-client:hover{background:var(--secondary-light);transform:translateY(-1px)}
+.menu-toggle{display:none;background:none;color:#fff;font-size:22px}
+
+.hero{min-height:100vh;background:linear-gradient(rgba(10,22,40,.85),rgba(10,22,40,.92)),url('https://images.unsplash.com/photo-1589829085413-56de8f18c54f?w=1600') center/cover;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px}
+.hero-content{max-width:820px;animation:fadeUp .8s ease}
+.hero h2{color:#fff;font-size:clamp(32px,5vw,56px);line-height:1.15;margin-bottom:18px}
+.hero h2 span{color:var(--secondary)}
+.hero p{color:#cbd5e1;font-size:clamp(15px,2vw,19px);margin-bottom:32px;max-width:620px;margin-left:auto;margin-right:auto}
+.hero .cta{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn-primary{background:var(--secondary);color:var(--primary);padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;transition:.25s;display:inline-flex;align-items:center;gap:10px}
+.btn-primary:hover{background:var(--secondary-light);transform:translateY(-2px);box-shadow:0 8px 20px rgba(201,168,76,.4)}
+.btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4);padding:12px 30px;border-radius:8px;font-weight:600;transition:.25s;display:inline-flex;align-items:center;gap:10px}
+.btn-outline:hover{border-color:var(--secondary);color:var(--secondary)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+.section{padding:80px 24px;max-width:1200px;margin:0 auto}
+.section-title{text-align:center;margin-bottom:50px}
+.section-title h3{font-size:clamp(26px,4vw,38px);color:var(--primary);margin-bottom:10px}
+.section-title p{color:var(--text-sec);font-size:16px}
+.section-title .line{width:60px;height:3px;background:var(--secondary);margin:14px auto 0}
+
+.areas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.area-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:32px 24px;text-align:center;transition:.3s;box-shadow:var(--shadow)}
+.area-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--secondary)}
+.area-card .icon{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:var(--secondary);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px}
+.area-card h4{font-size:20px;margin-bottom:10px}
+.area-card p{color:var(--text-sec);font-size:14px}
+
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.about-img{height:380px;border-radius:var(--radius);background:linear-gradient(135deg,var(--primary),var(--primary-light));display:flex;align-items:center;justify-content:center;color:var(--secondary);font-size:60px;box-shadow:var(--shadow-lg)}
+.about-text h3{font-size:32px;margin-bottom:18px}
+.about-text p{color:var(--text-sec);margin-bottom:16px}
+.mvv{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.mvv .item{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center}
+.mvv .item i{color:var(--secondary);font-size:24px;margin-bottom:8px}
+.mvv .item h5{font-family:'Inter';font-weight:700;color:var(--primary);margin-bottom:6px}
+.mvv .item p{font-size:13px;color:var(--text-sec)}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:40px}
+.team-card{text-align:center;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.team-card .photo{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;color:var(--secondary);font-size:40px}
+.team-card h5{font-family:'Inter';font-weight:700;color:var(--primary)}
+.team-card span{color:var(--secondary);font-size:13px}
+
+.contact-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px}
+.contact-form{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+.contact-info{display:flex;flex-direction:column;gap:18px}
+.contact-info .info-item{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow)}
+.contact-info .info-item i{width:44px;height:44px;border-radius:50%;background:var(--primary);color:var(--secondary);display:flex;align-items:center;justify-content:center;font-size:18px}
+.contact-info .info-item h5{font-family:'Inter';font-weight:700;color:var(--primary);font-size:15px}
+.contact-info .info-item p{color:var(--text-sec);font-size:14px}
+
+.site-footer{background:var(--primary);color:#cbd5e1;padding:50px 24px 20px}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+.footer-col h5{color:var(--secondary);font-family:'Inter';font-weight:700;margin-bottom:16px;font-size:15px}
+.footer-col p,.footer-col a{color:#cbd5e1;font-size:14px;display:block;margin-bottom:8px;transition:.2s}
+.footer-col a:hover{color:var(--secondary)}
+.footer-social{display:flex;gap:12px;margin-top:12px}
+.footer-social a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:var(--secondary);transition:.2s}
+.footer-social a:hover{background:var(--secondary);color:var(--primary)}
+.footer-bottom{text-align:center;border-top:1px solid rgba(255,255,255,.1);margin-top:30px;padding-top:20px;font-size:13px;color:#94a3b8}
+
+/* ===== LOGIN ===== */
+.login-overlay{position:fixed;inset:0;background:linear-gradient(135deg,rgba(10,22,40,.95),rgba(10,22,40,.88)),url('https://images.unsplash.com/photo-1589829085413-56de8f18c54f?w=1600') center/cover;z-index:2000;display:none;align-items:center;justify-content:center;padding:24px}
+.login-overlay.active{display:flex}
+.login-box{background:#fff;border-radius:14px;max-width:420px;width:100%;padding:44px 36px;box-shadow:var(--shadow-lg);animation:fadeUp .5s ease}
+.login-box .logo{text-align:center;margin-bottom:28px}
+.login-box .logo .mark{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:var(--secondary);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px}
+.login-box .logo h2{font-size:22px;color:var(--primary)}
+.login-box .logo span{color:var(--secondary);font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.field .input-wrap{position:relative}
+.field .input-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-sec)}
+.field input{width:100%;padding:12px 14px 12px 42px;border:1px solid var(--border);border-radius:8px;font-size:14px;transition:.2s}
+.field input:focus{border-color:var(--secondary);box-shadow:0 0 0 3px rgba(201,168,76,.15)}
+.login-box button[type=submit]{width:100%;background:var(--primary);color:#fff;padding:13px;border-radius:8px;font-weight:700;font-size:15px;transition:.2s}
+.login-box button[type=submit]:hover{background:var(--primary-light)}
+.login-hint{text-align:center;margin-top:18px;font-size:12px;color:var(--text-sec)}
+.login-back{text-align:center;margin-top:14px}
+.login-back a{color:var(--secondary);font-size:13px;font-weight:600}
+
+/* ===== ADMIN ===== */
+.admin{display:none;min-height:100vh}
+.admin.active{display:block}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--primary);color:#cbd5e1;z-index:900;transition:width .25s;display:flex;flex-direction:column;overflow:hidden}
+.sidebar.collapsed{width:var(--sidebar-w-collapsed)}
+.sidebar-head{padding:20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.08);min-height:72px}
+.sidebar-head .mark{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--secondary),var(--secondary-light));color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;flex-shrink:0}
+.sidebar-head .txt{overflow:hidden;white-space:nowrap}
+.sidebar-head .txt h4{color:#fff;font-size:15px;font-family:'Inter';font-weight:700;line-height:1.2}
+.sidebar-head .txt span{color:var(--secondary);font-size:10px;letter-spacing:1px}
+.sidebar-nav{flex:1;padding:14px 0;overflow-y:auto}
+.sidebar-nav .item{display:flex;align-items:center;gap:14px;padding:13px 22px;color:#cbd5e1;font-size:14px;cursor:pointer;transition:.2s;border-left:3px solid transparent;white-space:nowrap}
+.sidebar-nav .item:hover{background:rgba(255,255,255,.05);color:#fff}
+.sidebar-nav .item.active{background:rgba(201,168,76,.1);color:var(--secondary);border-left-color:var(--secondary)}
+.sidebar-nav .item i{font-size:18px;width:22px;text-align:center;flex-shrink:0}
+.sidebar-nav .item span{overflow:hidden}
+.sidebar.collapsed .sidebar-head .txt,.sidebar.collapsed .sidebar-nav .item span{display:none}
+.sidebar.collapsed .sidebar-nav .item{justify-content:center;padding:13px 0}
+
+.main{margin-left:var(--sidebar-w);transition:margin-left .25s;min-height:100vh}
+.main.expanded{margin-left:var(--sidebar-w-collapsed)}
+.topbar{position:sticky;top:0;background:#fff;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;box-shadow:var(--shadow);z-index:800}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.topbar-left .collapse-btn{background:none;font-size:20px;color:var(--primary);width:38px;height:38px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.topbar-left .collapse-btn:hover{background:var(--bg)}
+.topbar-left .page-title{font-size:18px;font-weight:700;color:var(--primary);font-family:'Inter'}
+.topbar-right{display:flex;align-items:center;gap:18px}
+.topbar-right .icon-btn{position:relative;background:none;color:var(--text-sec);font-size:18px;width:38px;height:38px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.topbar-right .icon-btn:hover{background:var(--bg);color:var(--primary)}
+.topbar-right .icon-btn .badge{position:absolute;top:4px;right:4px;background:var(--danger);color:#fff;font-size:10px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}
+.topbar-right .user{display:flex;align-items:center;gap:10px}
+.topbar-right .user .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:var(--secondary);display:flex;align-items:center;justify-content:center;font-weight:700}
+.topbar-right .user .info{line-height:1.2}
+.topbar-right .user .info strong{font-size:14px;color:var(--primary)}
+.topbar-right .user .info span{font-size:12px;color:var(--text-sec)}
+
+.content{padding:24px}
+.page{display:none;animation:fadeUp .3s ease}
+.page.active{display:block}
+
+/* Cards */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:24px}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px}
+.stat-card .ic{width:54px;height:54px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff}
+.stat-card .ic.blue{background:linear-gradient(135deg,#1e3a8a,#3b82f6)}
+.stat-card .ic.gold{background:linear-gradient(135deg,var(--secondary),var(--secondary-light));color:var(--primary)}
+.stat-card .ic.green{background:linear-gradient(135deg,#059669,#10b981)}
+.stat-card .ic.red{background:linear-gradient(135deg,#dc2626,#ef4444)}
+.stat-card .val{font-size:26px;font-weight:800;color:var(--primary);font-family:'Inter'}
+.stat-card .lbl{font-size:13px;color:var(--text-sec)}
+
+.panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:24px}
+.panel-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.panel-head h4{font-family:'Inter';font-weight:700;color:var(--primary);font-size:16px}
+.panel-body{padding:22px}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+/* Buttons */
+.btn{padding:9px 16px;border-radius:6px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn-gold{background:var(--secondary);color:var(--primary)}
+.btn-gold:hover{background:var(--secondary-light)}
+.btn-dark{background:var(--primary);color:#fff}
+.btn-dark:hover{background:var(--primary-light)}
+.btn-ghost{background:transparent;color:var(--text-sec);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--bg);color:var(--primary)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#dc2626}
+.btn-sm{padding:6px 10px;font-size:12px}
+
+/* Tables */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--bg);padding:12px 14px;text-align:left;font-weight:700;color:var(--primary);font-size:12px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+td{padding:12px 14px;border-top:1px solid var(--border);color:var(--text)}
+tbody tr:hover{background:var(--bg)}
+.row-actions{display:flex;gap:6px}
+.row-actions button{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.2s}
+.row-actions .edit{background:rgba(59,130,246,.1);color:#3b82f6}
+.row-actions .edit:hover{background:#3b82f6;color:#fff}
+.row-actions .del{background:rgba(239,68,68,.1);color:var(--danger)}
+.row-actions .del:hover{background:var(--danger);color:#fff}
+.row-actions .view{background:rgba(201,168,76,.15);color:var(--secondary)}
+.row-actions .view:hover{background:var(--secondary);color:var(--primary)}
+
+/* Badges */
+.badge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block}
+.badge.active{background:rgba(16,185,129,.15);color:var(--success)}
+.badge.archived{background:rgba(107,114,128,.15);color:var(--text-sec)}
+.badge.suspended{background:rgba(245,158,11,.15);color:var(--warning)}
+.badge.appeal{background:rgba(59,130,246,.15);color:#3b82f6}
+.badge.down{background:rgba(239,68,68,.15);color:var(--danger)}
+.badge.execution{background:rgba(168,85,247,.15);color:#a855f7}
+.badge.pending{background:rgba(245,158,11,.15);color:var(--warning)}
+.badge.paid{background:rgba(16,185,129,.15);color:var(--success)}
+.badge.received{background:rgba(16,185,129,.15);color:var(--success)}
+.badge.high{background:rgba(239,68,68,.15);color:var(--danger)}
+.badge.normal{background:rgba(107,114,128,.15);color:var(--text-sec)}
+
+/* Forms */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.form-grid .full{grid-column:1/-1}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:7px;font-size:14px;transition:.2s;background:#fff}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--secondary);box-shadow:0 0 0 3px rgba(201,168,76,.12)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+
+/* Filters */
+.filters{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.filters input,.filters select{padding:9px 12px;border:1px solid var(--border);border-radius:7px;font-size:13px;background:#fff}
+.filters input:focus,.filters select:focus{border-color:var(--secondary)}
+.search-box{position:relative;flex:1;min-width:200px}
+.search-box i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-sec)}
+.search-box input{width:100%;padding:9px 12px 9px 38px;border:1px solid var(--border);border-radius:7px;font-size:13px}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,22,40,.6);z-index:3000;display:none;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto}
+.modal-overlay.active{display:flex}
+.modal{background:#fff;border-radius:12px;max-width:780px;width:100%;box-shadow:var(--shadow-lg);animation:fadeUp .3s ease;margin:auto}
+.modal-head{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;border-radius:12px 12px 0 0}
+.modal-head h4{font-family:'Inter';font-weight:700;color:var(--primary);font-size:17px}
+.modal-head .close{background:none;font-size:22px;color:var(--text-sec);width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.modal-head .close:hover{background:var(--bg);color:var(--danger)}
+.modal-body{padding:24px;max-height:70vh;overflow-y:auto}
+.modal-foot{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--border);margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:10px 18px;font-size:14px;font-weight:600;color:var(--text-sec);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.2s}
+.tab:hover{color:var(--primary)}
+.tab.active{color:var(--secondary);border-bottom-color:var(--secondary)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Chart */
+.chart-bars{display:flex;align-items:flex-end;gap:14px;height:220px;padding:14px 0;border-bottom:1px solid var(--border)}
+.chart-bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+.chart-bar .bar{width:100%;max-width:50px;background:linear-gradient(180deg,var(--secondary),var(--secondary-light));border-radius:6px 6px 0 0;transition:.4s;min-height:4px;position:relative}
+.chart-bar .bar .val{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;color:var(--primary)}
+.chart-bar .lbl{font-size:11px;color:var(--text-sec);text-align:center}
+
+/* Timeline */
+.timeline{position:relative;padding-left:28px}
+.timeline:before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border)}
+.timeline-item{position:relative;padding-bottom:20px}
+.timeline-item:before{content:'';position:absolute;left:-24px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--secondary);border:3px solid #fff;box-shadow:0 0 0 2px var(--secondary)}
+.timeline-item .date{font-size:12px;color:var(--text-sec);font-weight:600}
+.timeline-item .type{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;background:var(--primary);color:var(--secondary);margin:0 6px}
+.timeline-item .desc{font-size:14px;color:var(--text);margin-top:4px}
+
+.empty{text-align:center;padding:40px;color:var(--text-sec)}
+.empty i{font-size:42px;margin-bottom:12px;color:var(--border)}
+
+/* 404 */
+.notfound{position:fixed;inset:0;background:linear-gradient(135deg,var(--primary),var(--primary-light));display:none;align-items:center;justify-content:center;z-index:4000;text-align:center;padding:24px}
+.notfound.active{display:flex}
+.notfound .num{font-size:120px;font-weight:900;color:var(--secondary);font-family:'Playfair Display'}
+.notfound h2{color:#fff;font-size:28px;margin-bottom:10px}
+.notfound p{color:#cbd5e1;margin-bottom:24px}
+
+/* Responsive */
+@media(max-width:900px){
+  .about-wrap,.contact-wrap,.grid-2{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .mvv{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .site-nav{display:none;position:absolute;top:72px;left:0;right:0;background:var(--primary);flex-direction:column;padding:18px;gap:14px;box-shadow:var(--shadow-lg)}
+  .site-nav.open{display:flex}
+  .menu-toggle{display:block}
+  .sidebar{transform:translateX(-100%);width:var(--sidebar-w)}
+  .sidebar.mobile-open{transform:translateX(0)}
+  .sidebar.collapsed{width:var(--sidebar-w)}
+  .main{margin-left:0}
+  .main.expanded{margin-left:0}
+  .topbar-right .user .info{display:none}
+  .footer-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="toastWrap"></div>
+
+<!-- ============ PUBLIC SITE ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="inner">
+    <div class="site-logo">
+      <div class="mark"><i class="fas fa-scale-balanced"></i></div>
+      <div class="txt">
+        <h1>Cristo Advogados</h1>
+        <span>Excelência em Direito</span>
+      </div>
+    </div>
+    <nav class="site-nav" id="siteNav">
+      <a href="#home" onclick="closeMenu()">Home</a>
+      <a href="#areas" onclick="closeMenu()">Áreas de Atuação</a>
+      <a href="#sobre" onclick="closeMenu()">Sobre</a>
+      <a href="#contato" onclick="closeMenu()">Contato</a>
+      <a href="#" class="btn-client" onclick="openLogin();return false;"><i class="fas fa-lock"></i> Área do Cliente</a>
+    </nav>
+    <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h2>Excelência em Direito <span>|</span> Mais de 15 anos protegendo seus direitos</h2>
+    <p>O Cristo Advogados Associados reúne experiência, dedicação e estratégia para oferecer soluções jurídicas completas, com atendimento personalizado e resultados sólidos.</p>
+    <div class="cta">
+      <a href="#contato" class="btn-primary"><i class="fas fa-gavel"></i> Solicite uma Consulta</a>
+      <a href="#areas" class="btn-outline"><i class="fas fa-book-open"></i> Nossas Áreas</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="areas">
+  <div class="section-title">
+    <h3>Áreas de Atuação</h3>
+    <p>Atuação completa em diversas áreas do Direito</p>
+    <div class="line"></div>
+  </div>
+  <div class="areas-grid" id="areasGrid"></div>
+</section>
+
+<section class="section" id="sobre">
+  <div class="section-title">
+    <h3>Sobre o Escritório</h3>
+    <p>Tradição, ética e compromisso com cada cliente</p>
+    <div class="line"></div>
+  </div>
+  <div class="about-wrap">
+    <div class="about-img"><i class="fas fa-building-columns"></i></div>
+    <div class="about-text">
+      <h3>Quem Somos</h3>
+      <p>Fundado há mais de 15 anos, o Cristo Advogados Associados é um escritório de advocacia consolidado, referência em atendimento jurídico de excelência. Atuamos com transparência, ética e dedicação, colocando os interesses de nossos clientes em primeiro lugar.</p>
+      <p>Nossa equipe é formada por advogados especializados em diferentes áreas do Direito, prontos para oferecer soluções estratégicas e personalizadas.</p>
+      <div class="mvv">
+        <div class="item"><i class="fas fa-bullseye"></i><h5>Missão</h5><p>Defender direitos com excelência e ética.</p></div>
+        <div class="item"><i class="fas fa-eye"></i><h5>Visão</h5><p>Ser referência nacional em advocacia.</p></div>
+        <div class="item"><i class="fas fa-handshake"></i><h5>Valores</h5><p>Transparência, compromisso e respeito.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="section-title" style="margin-top:60px">
+    <h3>Nossa Equipe</h3>
+    <p>Profissionais dedicados ao seu caso</p>
+    <div class="line"></div>
+  </div>
+  <div class="team-grid" id="teamGrid"></div>
+</section>
+
+<section class="section" id="contato">
+  <div class="section-title">
+    <h3>Contato</h3>
+    <p>Estamos prontos para atender você</p>
+    <div class="line"></div>
+  </div>
+  <div class="contact-wrap">
+    <form class="contact-form" id="contactForm">
+      <h4 style="margin-bottom:18px;color:var(--primary);font-family:'Inter';font-weight:700">Envie sua mensagem</h4>
+      <div class="form-grid">
+        <div class="form-group"><label>Nome*</label><input name="nome" required></div>
+        <div class="form-group"><label>Email*</label><input name="email" type="email" required></div>
+        <div class="form-group"><label>Telefone</label><input name="telefone" id="contactPhone"></div>
+        <div class="form-group"><label>Assunto</label><input name="assunto"></div>
+        <div class="form-group full"><label>Mensagem*</label><textarea name="mensagem" required></textarea></div>
+      </div>
+      <div class="form-actions"><button type="submit" class="btn btn-gold"><i class="fas fa-paper-plane"></i> Enviar Mensagem</button></div>
+    </form>
+    <div class="contact-info">
+      <div class="info-item"><i class="fas fa-location-dot"></i><div><h5>Endereço</h5><p>Av. Paulista, 1000 - Sala 1205<br>São Paulo - SP, 01310-100</p></div></div>
+      <div class="info-item"><i class="fas fa-phone"></i><div><h5>Telefone</h5><p>(11) 3000-1000</p></div></div>
+      <div class="info-item"><i class="fab fa-whatsapp"></i><div><h5>WhatsApp</h5><p>(11) 90000-1000</p></div></div>
+      <div class="info-item"><i class="fas fa-envelope"></i><div><h5>Email</h5><p>contato@cristo.adv.br</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="site-logo" style="margin-bottom:14px">
+        <div class="mark"><i class="fas fa-scale-balanced"></i></div>
+        <div class="txt"><h1 style="font-size:18px">Cristo Advogados</h1><span>Excelência em Direito</span></div>
+      </div>
+      <p>Mais de 15 anos de experiência defendendo direitos com ética, transparência e resultados.</p>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Navegação</h5>
+      <a href="#home">Home</a><a href="#areas">Áreas</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a>
+    </div>
+    <div class="footer-col">
+      <h5>Áreas</h5>
+      <a href="#areas">Direito Civil</a><a href="#areas">Direito Tributário</a><a href="#areas">Direito Trabalhista</a><a href="#areas">Direito Empresarial</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contato</h5>
+      <p><i class="fas fa-phone"></i> (11) 3000-1000</p>
+      <p><i class="fas fa-envelope"></i> contato@cristo.adv.br</p>
+      <p><i class="fas fa-location-dot"></i> Av. Paulista, 1000 - SP</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2024 Cristo Advogados Associados - www.cristo.adv.br - Todos os direitos reservados</div>
+</footer>
+
+<!-- ============ LOGIN ============ -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="logo">
+      <div class="mark"><i class="fas fa-scale-balanced"></i></div>
+      <h2>Cristo Advogados</h2>
+      <span>Excelência em Direito</span>
+    </div>
+    <form id="loginForm">
+      <div class="field">
+        <label>Usuário</label>
+        <div class="input-wrap"><i class="fas fa-user"></i><input name="usuario" id="loginUser" required></div>
+      </div>
+      <div class="field">
+        <label>Senha</label>
+        <div class="input-wrap"><i class="fas fa-lock"></i><input name="senha" type="password" id="loginPass" required></div>
+      </div>
+      <button type="submit"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+      <div class="login-hint">Credenciais padrão: <strong>admin</strong> / <strong>admin123</strong></div>
+      <div class="login-back"><a href="#" onclick="closeLogin();return false;"><i class="fas fa-arrow-left"></i> Voltar ao site</a></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ ADMIN ============ -->
+<div class="admin" id="admin">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="mark"><i class="fas fa-scale-balanced"></i></div>
+      <div class="txt"><h4>Cristo Advogados</h4><span>Painel Admin</span></div>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <div class="item active" data-page="dashboard"><i class="fas fa-chart-line"></i><span>Dashboard</span></div>
+      <div class="item" data-page="clientes"><i class="fas fa-users"></i><span>Clientes</span></div>
+      <div class="item" data-page="processos"><i class="fas fa-folder-open"></i><span>Processos</span></div>
+      <div class="item" data-page="financeiro"><i class="fas fa-coins"></i><span>Financeiro</span></div>
+      <div class="item" data-page="pessoal"><i class="fas fa-id-badge"></i><span>Pessoal</span></div>
+      <div class="item" data-page="configuracoes"><i class="fas fa-gear"></i><span>Configurações</span></div>
+    </nav>
+  </aside>
+
+  <div class="main" id="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="collapse-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div class="page-title" id="pageTitle">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" onclick="goToSite()" title="Voltar ao site"><i class="fas fa-globe"></i></button>
+        <button class="icon-btn" title="Notificações"><i class="fas fa-bell"></i><span class="badge" id="notifBadge">0</span></button>
+        <div class="user">
+          <div class="avatar">AD</div>
+          <div class="info"><strong>Administrador</strong><br><span>admin@cristo.adv.br</span></div>
+        </div>
+        <button class="icon-btn" onclick="logout()" title="Sair"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="stat-grid" id="dashStats"></div>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head"><h4><i class="fas fa-chart-bar"></i> Processos por Status</h4></div>
+            <div class="panel-body"><div class="chart-bars" id="statusChart"></div></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h4><i class="fas fa-clock-rotate-left"></i> Últimos Andamentos</h4></div>
+            <div class="panel-body"><div class="table-wrap" id="recentMovements"></div></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h4><i class="fas fa-hand-holding-dollar"></i> Contas a Receber do Mês</h4></div>
+          <div class="panel-body"><div class="table-wrap" id="dashReceivables"></div></div>
+        </div>
+      </div>
+
+      <!-- CLIENTES -->
+      <div class="page" id="page-clientes">
+        <div class="panel">
+          <div class="panel-head">
+            <h4><i class="fas fa-users"></i> Clientes</h4>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-ghost" onclick="exportClientsCSV()"><i class="fas fa-file-csv"></i> Exportar CSV</button>
+              <button class="btn btn-gold" onclick="openClientModal()"><i class="fas fa-plus"></i> Novo Cliente</button>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="filters">
+              <div class="search-box"><i class="fas fa-search"></i><input id="clientSearch" placeholder="Buscar por nome ou CPF/CNPJ..."></div>
+              <select id="clientTypeFilter"><option value="">Todos os tipos</option><option value="pf">Pessoa Física</option><option value="pj">Pessoa Jurídica</option></select>
+            </div>
+            <div class="table-wrap"><table id="clientsTable"></table></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESSOS -->
+      <div class="page" id="page-processos">
+        <div class="panel">
+          <div class="panel-head">
+            <h4><i class="fas fa-folder-open"></i> Processos</h4>
+            <button class="btn btn-gold" onclick="openProcessModal()"><i class="fas fa-plus"></i> Novo Processo</button>
+          </div>
+          <div class="panel-body">
+            <div class="filters">
+              <div class="search-box"><i class="fas fa-search"></i><input id="processSearch" placeholder="Buscar por número, cliente ou parte contrária..."></div>
+              <select id="filterStatus"><option value="">Todos os status</option></select>
+              <select id="filterArea"><option value="">Todas as áreas</option></select>
+              <select id="filterLawyer"><option value="">Todos os advogados</option></select>
+            </div>
+            <div class="table-wrap"><table id="processTable"></table></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FINANCEIRO -->
+      <div class="page" id="page-financeiro">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="tabs">
+              <div class="tab active" data-tab="receber">Contas a Receber</div>
+              <div class="tab" data-tab="pagar">Contas a Pagar</div>
+              <div class="tab" data-tab="fluxo">Fluxo de Caixa</div>
+              <div class="tab" data-tab="relatorios">Relatórios</div>
+            </div>
+
+            <div class="tab-content active" id="tab-receber">
+              <div style="display:flex;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+                <h4 style="color:var(--primary);font-family:'Inter'">Contas a Receber</h4>
+                <button class="btn btn-gold" onclick="openReceivableModal()"><i class="fas fa-plus"></i> Nova Conta</button>
+              </div>
+              <div class="table-wrap"><table id="receivablesTable"></table></div>
+            </div>
+
+            <div class="tab-content" id="tab-pagar">
+              <div style="display:flex;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+                <h4 style="color:var(--primary);font-family:'Inter'">Contas a Pagar</h4>
+                <button class="btn btn-gold" onclick="openPayableModal()"><i class="fas fa-plus"></i> Nova Conta</button>
+              </div>
+              <div class="table-wrap"><table id="payablesTable"></table></div>
+            </div>
+
+            <div class="tab-content" id="tab-fluxo">
+              <h4 style="color:var(--primary);font-family:'Inter';margin-bottom:14px">Fluxo de Caixa</h4>
+              <div class="stat-grid" id="cashStats"></div>
+              <div class="panel" style="box-shadow:none">
+            <div class="panel-head"><h4>Entradas vs Saídas (6 meses)</h4></div>
+            <div class="panel-body"><div class="chart-bars" id="cashChart"></div></div>
+          </div>
+            </div>
+
+            <div class="tab-content" id="tab-relatorios">
+              <h4 style="color:var(--primary);font-family:'Inter';margin-bottom:14px">Relatórios</h4>
+              <div class="form-grid">
+                <div class="form-group"><label>Data Início</label><input type="date" id="repStart"></div>
+                <div class="form-group"><label>Data Fim</label><input type="date" id="repEnd"></div>
+              </div>
+              <div class="form-actions" style="justify-content:flex-start;margin-top:14px">
+                <button class="btn btn-dark" onclick="generateReport()"><i class="fas fa-file-invoice"></i> Gerar Extrato</button>
+              </div>
+              <div id="reportResult" style="margin-top:18px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PESSOAL -->
+      <div class="page" id="page-pessoal">
+        <div class="panel">
+          <div class="panel-head">
+            <h4><i class="fas fa-id-badge"></i> Colaboradores</h4>
+            <button class="btn btn-gold" onclick="openEmployeeModal()"><i class="fas fa-plus"></i> Novo Colaborador</button>
+          </div>
+          <div class="panel-body">
+            <div class="filters">
+              <div class="search-box"><i class="fas fa-search"></i><input id="empSearch" placeholder="Buscar por nome ou cargo..."></div>
+              <select id="empDeptFilter"><option value="">Todos os departamentos</option><option>Administrativo</option><option>Jurídico</option><option>Financeiro</option><option>Secretaria</option></select>
+            </div>
+            <div class="table-wrap"><table id="employeesTable"></table></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h4><i class="fas fa-clock"></i> Controle de Ponto</h4>
+            <button class="btn btn-gold" onclick="openClockModal()"><i class="fas fa-plus"></i> Registrar Ponto</button>
+          </div>
+          <div class="panel-body"><div class="table-wrap"><table id="clockTable"></table></div></div>
+        </div>
+      </div>
+
+      <!-- CONFIGURAÇÕES -->
+      <div class="page" id="page-configuracoes">
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head"><h4><i class="fas fa-building"></i> Dados do Escritório</h4></div>
+            <div class="panel-body">
+              <form id="officeForm">
+                <div class="form-grid">
+                  <div class="form-group full"><label>Nome do Escritório</label><input name="nome"></div>
+                  <div class="form-group full"><label>Endereço</label><input name="endereco"></div>
+                  <div class="form-group"><label>Telefone</label><input name="telefone"></div>
+                  <div class="form-group"><label>Email</label><input name="email"></div>
+                  <div class="form-group full"><label>CNPJ</label><input name="cnpj" id="officeCnpj"></div>
+                </div>
+                <div class="form-actions"><button type="submit" class="btn btn-gold"><i class="fas fa-save"></i> Salvar</button></div>
+              </form>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h4><i class="fas fa-key"></i> Alterar Senha</h4></div>
+            <div class="panel-body">
+              <form id="passForm">
+                <div class="form-group" style="margin-bottom:14px"><label>Senha Atual</label><input type="password" id="curPass" required></div>
+                <div class="form-group" style="margin-bottom:14px"><label>Nova Senha</label><input type="password" id="newPass" required></div>
+                <div class="form-group" style="margin-bottom:14px"><label>Confirmar Senha</label><input type="password" id="confPass" required></div>
+                <div class="form-actions"><button type="submit" class="btn btn-dark"><i class="fas fa-key"></i> Alterar</button></div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h4><i class="fas fa-database"></i> Backup e Restauração</h4></div>
+          <div class="panel-body">
+            <p style="color:var(--text-sec);margin-bottom:16px">Faça backup completo de todos os dados do sistema ou restaure a partir de um arquivo JSON.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn btn-dark" onclick="backupData()"><i class="fas fa-download"></i> Exportar JSON</button>
+              <label class="btn btn-ghost" style="cursor:pointer"><i class="fas fa-upload"></i> Importar JSON<input type="file" accept="application/json" onchange="restoreData(event)" style="display:none"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h4 id="modalTitle">Modal</h4>
+      <button class="close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<!-- ============ 404 ============ -->
+<div class="notfound" id="notFound">
+  <div>
+    <div class="num">404</div>
+    <h2>Página não encontrada</h2>
+    <p>A página que você procura não existe ou foi movida.</p>
+    <button class="btn btn-gold" onclick="goHome404()"><i class="fas fa-home"></i> Voltar ao Início</button>
+  </div>
+</div>
+
+<script>
+/* ============ DATA STORE ============ */
+class DataStore {
+  constructor(){ this.prefix='cristo_adv_'; this.init(); }
+  key(k){ return this.prefix+k; }
+  get(k){ try{ return JSON.parse(localStorage.getItem(this.key(k)))||[]; }catch(e){ return []; } }
+  set(k,v){ localStorage.setItem(this.key(k), JSON.stringify(v)); }
+  add(k,item){ const arr=this.get(k); item.id=item.id||Date.now().toString()+Math.random().toString(36).slice(2,6); item.createdAt=item.createdAt||new Date().toISOString(); arr.push(item); this.set(k,arr); return item; }
+  update(k,id,patch){ const arr=this.get(k); const i=arr.findIndex(x=>x.id===id); if(i>-1){ arr[i]={...arr[i],...patch,updatedAt:new Date().toISOString()}; this.set(k,arr); return arr[i]; } return null; }
+  delete(k,id){ const arr=this.get(k).filter(x=>x.id!==id); this.set(k,arr); }
+  find(k,id){ return this.get(k).find(x=>x.id===id); }
+  init(){
+    if(!localStorage.getItem(this.key('config'))){
+      this.set('config',{nome:'Cristo Advogados Associados',endereco:'Av. Paulista, 1000 - São Paulo/SP',telefone:'(11) 3000-1000',email:'contato@cristo.adv.br',cnpj:'12.345.678/0001-90'});
+    }
+    if(!localStorage.getItem(this.key('auth'))){
+      this.set('auth',{user:'admin',pass:'admin123'});
+    }
+    if(!localStorage.getItem(this.key('clients'))){ this.set('clients',[]); }
+    if(!localStorage.getItem(this.key('processes'))){ this.set('processes',[]); }
+    if(!localStorage.getItem(this.key('movements'))){ this.set('movements',[]); }
+    if(!localStorage.getItem(this.key('receivables'))){ this.set('receivables',[]); }
+    if(!localStorage.getItem(this.key('payables'))){ this.set('payables',[]); }
+    if(!localStorage.getItem(this.key('employees'))){ this.set('employees',[]); }
+    if(!localStorage.getItem(this.key('clocks'))){ this.set('clocks',[]); }
+    if(!localStorage.getItem(this.key('contacts'))){ this.set('contacts',[]); }
+  }
+  exportAll(){
+    const data={};
+    ['config','auth','clients','processes','movements','receivables','payables','employees','clocks','contacts'].forEach(k=>data[k]=this.get(k));
+    return data;
+  }
+  importAll(data){ Object.keys(data).forEach(k=>this.set(k,data[k])); }
+}
+const DS = new DataStore();
+
+/* ============ UTILS ============ */
+function $(s){return document.querySelector(s);}
+function $$(s){return document.querySelectorAll(s);}
+function uid(){return Date.now().toString()+Math.random().toString(36).slice(2,6);}
+function brDate(d){ if(!d) return '-'; const dt=new Date(d); if(isNaN(dt)) return '-'; return dt.toLocaleDateString('pt-BR'); }
+function brDateTime(d){ if(!d) return '-'; const dt=new Date(d); if(isNaN(dt)) return '-'; return dt.toLocaleString('pt-BR'); }
+function money(v){ v=Number(v||0); return 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function parseMoney(v){ if(!v) return 0; if(typeof v==='number') return v; return Number(String(v).replace(/[^0-9,-]/g,'').replace(',','.'))||0; }
+
+/* Masks */
+function maskCPF(v){ v=v.replace(/\D/g,'').slice(0,11); return v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4'); }
+function maskCNPJ(v){ v=v.replace(/\D/g,'').slice(0,14); return v.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5'); }
+function maskPhone(v){ v=v.replace(/\D/g,'').slice(0,11); if(v.length<=10) return v.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3'); return v.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3'); }
+function maskCEP(v){ v=v.replace(/\D/g,'').slice(0,8); return v.replace(/(\d{5})(\d{3})/, '$1-$2'); }
+function maskMoney(v){ let n=String(v).replace(/[^0-9]/g,''); if(!n) return ''; n=(Number(n)/100).toFixed(2); return 'R$ '+Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function maskCNJ(v){ v=v.replace(/\D/g,'').slice(0,20); return v.replace(/(\d{7})(\d{2})(\d{4})(\d{1})(\d{2})(\d{4})/, '$1-$2.$3.$4.$5.$6'); }
+
+function applyMask(el,type){
+  el.addEventListener('input',e=>{
+    let v=e.target.value;
+    if(type==='cpf') v=maskCPF(v);
+    if(type==='cnpj') v=maskCNPJ(v);
+    if(type==='phone') v=maskPhone(v);
+    if(type==='cep') v=maskCEP(v);
+    if(type==='money') v=maskMoney(v);
+    if(type==='cnj') v=maskCNJ(v);
+    e.target.value=v;
+  });
+}
+
+/* Validations */
+function validCPF(v){ v=v.replace(/\D/g,''); if(v.length!==11) return false; if(/^([0-9])\1+$/.test(v)) return false; let s=0,r; for(let i=1;i<=9;i++) s+=parseInt(v[i-1])*(11-i); r=(s*10)%11; if(r===10) r=0; if(r!==parseInt(v[9])) return false; s=0; for(let i=1;i<=10;i++) s+=parseInt(v[i-1])*(12-i); r=(s*10)%11; if(r===10) r=0; return r===parseInt(v[10]); }
+function validCNPJ(v){ v=v.replace(/\D/g,''); if(v.length!==14) return false; if(/^([0-9])\1+$/.test(v)) return false; let t=v.length-2,d=v.slice(t),calc=x=>{ let n=v.slice(0,x),s=0,p=x-7; for(let i=x;i>=1;i--){ s+=parseInt(n[x-i])*p--; if(p<2)p=9; } return s%11<2?0:11-s%11; }; return calc(t)===parseInt(d[0])&&calc(t+1)===parseInt(d[1]); }
+
+/* Toast */
+function toast(msg,type='info'){
+  const wrap=$('#toastWrap');
+  const t=document.createElement('div');
+  t.className='toast '+type;
+  const icons={success:'fa-circle-check',error:'fa-circle-xmark',warning:'fa-triangle-exclamation',info:'fa-circle-info'};
+  t.innerHTML=`<i class="fas ${icons[type]||icons.info}"></i><span>${msg}</span>`;
+  wrap.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(120%)'; setTimeout(()=>t.remove(),300); },3000);
+}
+
+/* ============ SITE ============ */
+const AREAS=[
+  {icon:'fa-scale-balanced',title:'Direito Civil',desc:'Contratos, família, sucessões, responsabilidade civil e direitos do consumidor.'},
+  {icon:'fa-landmark',title:'Direito Administrativo',desc:'Licitações, contratos públicos, servidores e atos administrativos.'},
+  {icon:'fa-file-invoice-dollar',title:'Direito Tributário',desc:'Planejamento tributário, defesa fiscal e recuperação de tributos.'},
+  {icon:'fa-briefcase',title:'Direito Trabalhista',desc:'Reclamações trabalhistas, acordos e assessoria empresarial trabalhista.'},
+  {icon:'fa-person-canes',title:'Direito Previdenciário',desc:'Aposentadorias, benefícios, revisões e planejamento previdenciário.'},
+  {icon:'fa-building',title:'Direito Empresarial',desc:'Constituição de empresas, contratos comerciais e recuperação judicial.'}
+];
+const TEAM=[
+  {name:'Dr. Carlos Cristo',role:'Sócio Fundador'},
+  {name:'Dra. Marina Ribeiro',role:'Advogada Sênior'},
+  {name:'Dr. Paulo Mendes',role:'Advogado'},
+  {name:'Ana Souza',role:'Secretária Jurídica'}
+];
+function renderSite(){
+  $('#areasGrid').innerHTML=AREAS.map(a=>`<div class="area-card"><div class="icon"><i class="fas ${a.icon}"></i></div><h4>${a.title}</h4><p>${a.desc}</p></div>`).join('');
+  $('#teamGrid').innerHTML=TEAM.map(t=>`<div class="team-card"><div class="photo"><i class="fas fa-user-tie"></i></div><h5>${t.name}</h5><span>${t.role}</span></div>`).join('');
+}
+function toggleMenu(){ $('#siteNav').classList.toggle('open'); }
+function closeMenu(){ $('#siteNav').classList.remove('open'); }
+
+$('#contactForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const obj={};fd.forEach((v,k)=>obj[k]=v);
+  DS.add('contacts',obj);
+  e.target.reset();
+  toast('Mensagem enviada com sucesso! Em breve entraremos em contato.','success');
+});
+applyMask($('#contactPhone'),'phone');
+
+/* ============ LOGIN ============ */
+function openLogin(){ $('#loginOverlay').classList.add('active'); }
+function closeLogin(){ $('#loginOverlay').classList.remove('active'); }
+$('#loginForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const u=$('#loginUser').value.trim();
+  const p=$('#loginPass').value;
+  const auth=DS.get('auth')[0]||{user:'admin',pass:'admin123'};
+  if(u===auth.user && p===auth.pass){
+    sessionStorage.setItem('cristo_logged','1');
+    closeLogin();
+    enterAdmin();
+    toast('Bem-vindo ao painel administrativo!','success');
+  }else{
+    toast('Usuário ou senha inválidos.','error');
+  }
+});
+function logout(){ sessionStorage.removeItem('cristo_logged'); $('#admin').classList.remove('active'); document.body.style.overflow='auto'; toast('Sessão encerrada.','info'); }
+function goToSite(){ $('#admin').classList.remove('active'); document.body.style.overflow='auto'; window.scrollTo(0,0); }
+
+function enterAdmin(){
+  $('#admin').classList.add('active');
+  document.body.style.overflow='hidden';
+  window.scrollTo(0,0);
+  renderAll();
+}
+
+/* ============ ADMIN NAV ============ */
+const PAGE_TITLES={dashboard:'Dashboard',clientes:'Clientes',processos:'Processos',financeiro:'Financeiro',pessoal:'Pessoal',configuracoes:'Configurações'};
+$$('.sidebar-nav .item').forEach(it=>it.addEventListener('click',()=>{
+  $$('.sidebar-nav .item').forEach(x=>x.classList.remove('active'));
+  it.classList.add('active');
+  const p=it.dataset.page;
+  $$('.page').forEach(x=>x.classList.remove('active'));
+  $('#page-'+p).classList.add('active');
+  $('#pageTitle').textContent=PAGE_TITLES[p];
+  if(window.innerWidth<=768) $('#sidebar').classList.remove('mobile-open');
+}));
+function toggleSidebar(){
+  if(window.innerWidth<=768){ $('#sidebar').classList.toggle('mobile-open'); }
+  else{ $('#sidebar').classList.toggle('collapsed'); $('#main').classList.toggle('expanded'); }
+}
+
+/* Tabs */
+$$('.tab').forEach(t=>t.addEventListener('click',()=>{
+  $$('.tab').forEach(x=>x.classList.remove('active'));
+  $$('.tab-content').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  $('#tab-'+t.dataset.tab).classList.add('active');
+}));
+
+/* ============ MODAL ============ */
+function openModal(title,body,foot){
+  $('#modalTitle').textContent=title;
+  $('#modalBody').innerHTML=body;
+  $('#modalFoot').innerHTML=foot||'';
+  $('#modalOverlay').classList.add('active');
+}
+function closeModal(){ $('#modalOverlay').classList.remove('active'); }
+$('#modalOverlay').addEventListener('click',e=>{ if(e.target.id==='modalOverlay') closeModal(); });
+
+function confirmDelete(msg,cb){
+  openModal('Confirmar Exclusão',`<p style="color:var(--text-sec)">${msg}</p>`,`<button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-danger" id="confirmDelBtn"><i class="fas fa-trash"></i> Excluir</button>`);
+  $('#confirmDelBtn').onclick=()=>{ cb(); closeModal(); };
+}
+
+/* ============ DASHBOARD ============ */
+function renderDashboard(){
+  const clients=DS.get('clients');
+  const processes=DS.get('processes');
+  const receivables=DS.get('receivables');
+  const now=new Date();
+  const month=now.getMonth();
+  const year=now.getFullYear();
+  const active=processes.filter(p=>p.status==='Ativo').length;
+  const archived=processes.filter(p=>p.status==='Arquivado'||p.status==='Baixado').length;
+  const monthRec=receivables.filter(r=>{const d=new Date(r.dataVencimento);return d.getMonth()===month&&d.getFullYear()===year&&r.status==='Recebido';}).reduce((s,r)=>s+parseMoney(r.valor),0);
+  $('#dashStats').innerHTML=[
+    {ic:'blue',icon:'fa-users',val:clients.length,lbl:'Total de Clientes'},
+    {ic:'gold',icon:'fa-folder-open',val:active,lbl:'Processos Ativos'},
+    {ic:'red',icon:'fa-box-archive',val:archived,lbl:'Processos Arquivados'},
+    {ic:'green',icon:'fa-coins',val:money(monthRec),lbl:'Receita do Mês'}
+  ].map(s=>`<div class="stat-card"><div class="ic ${s.ic}"><i class="fas ${s.icon}"></i></div><div><div class="val">${s.val}</div><div class="lbl">${s.lbl}</div></div></div>`).join('');
+
+  const statuses=['Ativo','Arquivado','Suspenso','Em Recurso','Baixado','Em Fase de Cumprimento de Sentença'];
+  const counts=statuses.map(s=>processes.filter(p=>p.status===s).length);
+  const max=Math.max(...counts,1);
+  $('#statusChart').innerHTML=statuses.map((s,i)=>`<div class="chart-bar"><div class="bar" style="height:${(counts[i]/max)*100}%"><span class="val">${counts[i]}</span></div><div class="lbl">${s.length>14?s.slice(0,12)+'...':s}</div></div>`).join('');
+
+  const movements=DS.get('movements').sort((a,b)=>new Date(b.data)-new Date(a.data)).slice(0,5);
+  if(!movements.length){ $('#recentMovements').innerHTML='<div class="empty"><i class="fas fa-inbox"></i><p>Nenhum andamento registrado.</p></div>'; }
+  else{
+    $('#recentMovements').innerHTML=`<table><thead><tr><th>Data</th><th>Processo</th><th>Tipo</th><th>Descrição</th></tr></thead><tbody>${movements.map(m=>{const p=DS.find('processes',m.processId);return `<tr><td>${brDate(m.data)}</td><td>${p?p.numero:'-'}</td><td><span class="badge normal">${m.tipo}</span></td><td>${m.descricao.slice(0,60)}</td></tr>`;}).join('')}</tbody></table>`;
+  }
+
+  const monthRecs=receivables.filter(r=>{const d=new Date(r.dataVencimento);return d.getMonth()===month&&d.getFullYear()===year;});
+  if(!monthRecs.length){ $('#dashReceivables').innerHTML='<div class="empty"><i class="fas fa-inbox"></i><p>Nenhuma conta a receber neste mês.</p></div>'; }
+  else{
+    $('#dashReceivables').innerHTML=`<table><thead><tr><th>Cliente</th><th>Descrição</th><th>Vencimento</th><th>Valor</th><th>Status</th></tr></thead><tbody>${monthRecs.map(r=>`<tr><td>${r.cliente||'-'}</td><td>${r.descricao||'-'}</td><td>${brDate(r.dataVencimento)}</td><td>${money(r.valor)}</td><td><span class="badge ${r.status.toLowerCase()}" style="text-transform:capitalize">${r.status}</span></td></tr>`).join('')}</tbody></table>`;
+  }
+
+  const pending=receivables.filter(r=>r.status==='Pendente').length+DS.get('payables').filter(p=>p.status==='Pendente').length;
+  $('#notifBadge').textContent=pending;
+}
+
+/* ============ CLIENTES ============ */
+let editingClientId=null;
+function renderClients(){
+  const search=$('#clientSearch').value.toLowerCase();
+  const typeF=$('#clientTypeFilter').value;
+  let list=DS.get('clients');
+  if(search) list=list.filter(c=>(c.nome||'').toLowerCase().includes(search)||(c.cpfCnpj||'').toLowerCase().includes(search));
+  if(typeF) list=list.filter(c=>c.tipo===typeF);
+  if(!list.length){ $('#clientsTable').innerHTML='<tbody><tr><td colspan="6"><div class="empty"><i class="fas fa-users-slash"></i><p>Nenhum cliente cadastrado.</p></div></td></tr></tbody>'; return; }
+  $('#clientsTable').innerHTML=`<thead><tr><th>Nome</th><th>CPF/CNPJ</th><th>Telefone</th><th>Email</th><th>Cadastro</th><th>Ações</th></tr></thead><tbody>${list.map(c=>`<tr><td>${c.nome||'-'}</td><td>${c.cpfCnpj||'-'}</td><td>${c.telefone||'-'}</td><td>${c.email||'-'}</td><td>${brDate(c.createdAt)}</td><td><div class="row-actions"><button class="edit" onclick="openClientModal('${c.id}')" title="Editar"><i class="fas fa-pen"></i></button><button class="del" onclick="deleteClient('${c.id}')" title="Excluir"><i class="fas fa-trash"></i></button></div></td></tr>`).join('')}</tbody>`;
+}
+function openClientModal(id){
+  editingClientId=id||null;
+  const c=id?DS.find('clients',id):{};
+  const body=`<form id="clientForm">
+    <div class="form-grid">
+      <div class="form-group"><label>Tipo*</label><select name="tipo" id="cliTipo" required><option value="pf" ${c.tipo==='pf'?'selected':''}>Pessoa Física</option><option value="pj" ${c.tipo==='pj'?'selected':''}>Pessoa Jurídica</option></select></div>
+      <div class="form-group"><label id="nomeLbl">${c.tipo==='pj'?'Razão Social':'Nome'}*</label><input name="nome" value="${c.nome||''}" required></div>
+      <div class="form-group"><label id="docLbl">${c.tipo==='pj'?'CNPJ':'CPF'}*</label><input name="cpfCnpj" id="cliDoc" value="${c.cpfCnpj||''}" required></div>
+      <div class="form-group"><label id="rgLbl">${c.tipo==='pj'?'Inscrição Estadual':'RG'}</label><input name="rgIe" value="${c.rgIe||''}"></div>
+      <div class="form-group"><label>Telefone</label><input name="telefone" id="cliTel" value="${c.telefone||''}"></div>
+      <div class="form-group"><label>Celular</label><input name="celular" id="cliCel" value="${c.celular||''}"></div>
+      <div class="form-group full"><label>Email</label><input name="email" type="email" value="${c.email||''}"></div>
+      <div class="form-group"><label>CEP</label><input name="cep" id="cliCep" value="${c.cep||''}"></div>
+      <div class="form-group full"><label>Logradouro</label><input name="logradouro" value="${c.logradouro||''}"></div>
+      <div class="form-group"><label>Número</label><input name="numero" value="${c.numero||''}"></div>
+      <div class="form-group"><label>Complemento</label><input name="complemento" value="${c.complemento||''}"></div>
+      <div class="form-group"><label>Bairro</label><input name="bairro" value="${c.bairro||''}"></div>
+      <div class="form-group"><label>Cidade</label><input name="cidade" value="${c.cidade||''}"></div>
+      <div class="form-group"><label>UF</label><input name="uf" value="${c.uf||''}" maxlength="2"></div>
+      <div class="form-group full"><label>Observações</label><textarea name="observacoes">${c.observacoes||''}</textarea></div>
+    </div>
+  </form>`;
+  const foot=`<button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-gold" onclick="saveClient()"><i class="fas fa-save"></i> Salvar</button>`;
+  openModal(id?'Editar Cliente':'Novo Cliente',body,foot);
+  applyMask($('#cliDoc'),'cpf');
+  applyMask($('#cliTel'),'phone');
+  applyMask($('#cliCel'),'phone');
+  applyMask($('#cliCep'),'cep');
+  $('#cliTipo').addEventListener('change',e=>{
+    const pj=e.target.value==='pj';
+    $('#nomeLbl').textContent=pj?'Razão Social':'Nome';
+    $('#docLbl').textContent=pj?'CNPJ':'CPF';
+    $('#rgLbl').textContent=pj?'Inscrição Estadual':'RG';
+    $('#cliDoc').value='';
+  });
+  // re-apply mask when type changes
+  $('#cliTipo').addEventListener('change',()=>{ const inp=$('#cliDoc'); inp.removeEventListener('input'); applyMask(inp,$('#cliTipo').value==='pj'?'cnpj':'cpf'); });
+}
+function saveClient(){
+  const form=$('#clientForm');
+  if(!form.checkValidity()){ form.reportValidity(); return; }
+  const fd=new FormData(form);
+  const obj={};fd.forEach((v,k)=>obj[k]=v.trim());
+  const doc=obj.cpfCnpj.replace(/\D/g,'');
+  if(obj.tipo==='pf'){ if(!validCPF(obj.cpfCnpj)){ toast('CPF inválido.','error'); return; } }
+  else{ if(!validCNPJ(obj.cpfCnpj)){ toast('CNPJ inválido.','error'); return; } }
+  if(editingClientId){ DS.update('clients',editingClientId,obj); toast('Cliente atualizado!','success'); }
+  else{ DS.add('clients',obj); toast('Cliente cadastrado!','success'); }
+  closeModal(); renderClients(); renderDashboard();
+}
+function deleteClient(id){
+  const c=DS.find('clients',id); if(!c) return;
+  confirmDelete(`Excluir o cliente "${c.nome}"? Esta ação não pode ser desfeita.`,()=>{ DS.delete('clients',id); toast('Cliente excluído.','success'); renderClients(); renderDashboard(); });
+}
+function exportClientsCSV(){
+  const list=DS.get('clients');
+  if(!list.length){ toast('Nenhum cliente para exportar.','warning'); return; }
+  const headers=['Nome','CPF/CNPJ','Telefone','Celular','Email','CEP','Logradouro','Cidade','UF'];
+  const rows=list.map(c=>[c.nome,c.cpfCnpj,c.telefone,c.celular,c.email,c.cep,c.logradouro,c.cidade,c.uf].map(v=>`"${(v||'').replace(/"/g,'\\"')}"`).join(','));
+  const csv=[headers.join(','),...rows].join('\n');
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='clientes.csv'; a.click();
+  toast('CSV exportado!','success');
+}
+$('#clientSearch').addEventListener('input',renderClients);
+$('#clientTypeFilter').addEventListener('change',renderClients);
+
+/* ============ PROCESSOS ============ */
+let editingProcessId=null;
+const PROCESS_STATUS=['Ativo','Arquivado','Suspenso','Em Recurso','Baixado','Em Fase de Cumprimento de Sentença'];
+const PROCESS_AREAS=['Civil','Administrativo','Tributário','Trabalhista','Previdenciário','Empresarial'];
+const MOVEMENT_TYPES=['Despacho','Sentença','Audiência','Petição','Prazo','Protocolo','Outro'];
+function statusBadgeClass(s){ return ({'Ativo':'active','Arquivado':'archived','Suspenso':'suspended','Em Recurso':'appeal','Baixado':'down','Em Fase de Cumprimento de Sentença':'execution'})[s]||'normal'; }
+function renderProcesses(){
+  const search=$('#processSearch').value.toLowerCase();
+  const st=$('#filterStatus').value;
+  const ar=$('#filterArea').value;
+  const lw=$('#filterLawyer').value;
+  let list=DS.get('processes');
+  if(search) list=list.filter(p=>(p.numero||'').toLowerCase().includes(search)||(p.clienteNome||'').toLowerCase().includes(search)||(p.parteContraria||'').toLowerCase().includes(search));
+  if(st) list=list.filter(p=>p.status===st);
+  if(ar) list=list.filter(p=>p.area===ar);
+  if(lw) list=list.filter(p=>p.advogado===lw);
+  if(!list.length){ $('#processTable').innerHTML='<tbody><tr><td colspan="10"><div class="empty"><i class="fas fa-folder-minus"></i><p>Nenhum processo cadastrado.</p></div></td></tr></tbody>'; return; }
+  $('#processTable').innerHTML=`<thead><tr><th>Nº Processo</th><th>Cliente</th><th>Parte Contrária</th><th>Área</th><th>Vara/Tribunal</th><th>Status</th><th>Distribuição</th><th>Valor</th><th>Atualização</th><th>Ações</th></tr></thead><tbody>${list.map(p=>`<tr><td>${p.numero||'-'}</td><td>${p.clienteNome||'-'}</td><td>${p.parteContraria||'-'}</td><td>${p.area||'-'}</td><td>${(p.vara||'-')+' / '+(p.tribunal||'-')}</td><td><span class="badge ${statusBadgeClass(p.status)}">${p.status}</span></td><td>${brDate(p.dataDistribuicao)}</td><td>${money(p.valorCausa)}</td><td>${brDate(p.updatedAt||p.createdAt)}</td><td><div class="row-actions"><button class="view" onclick="openProcessWorkflow('${p.id}')" title="Workflow"><i class="fas fa-stream"></i></button><button class="edit" onclick="openProcessModal('${p.id}')" title="Editar"><i class="fas fa-pen"></i></button><button class="del" onclick="deleteProcess('${p.id}')" title="Excluir"><i class="fas fa-trash"></i></button></div></td></tr>`).join('')}</tbody>`;
+}
+function fillProcessFilters(){
+  $('#filterStatus').innerHTML='<option value="">Todos os status</option>'+PROCESS_STATUS.map(s=>`<option>${s}</option>`).join('');
+  $('#filterArea').innerHTML='<option value="">Todas as áreas</option>'+PROCESS_AREAS.map(s=>`<option>${s}</option>`).join('');
+  const lawyers=[...new Set(DS.get('processes').map(p=>p.advogado).filter(Boolean))];
+  $('#filterLawyer').innerHTML='<option value="">Todos os advogados</option>'+lawyers.map(s=>`<option>${s}</option>`).join('');
+}
+function openProcessModal(id){
+  editingProcessId=id||null;
+  const p=id?DS.find('processes',id):{};
+  const clients=DS.get('clients');
+  const clientOpts=clients.map(c=>`<option value="${c.id}" data-nome="${c.nome}" ${p.clienteId===c.id?'selected':''}>${c.nome}</option>`).join('');
+  const body=`<form id="processForm">
+    <div class="form-grid">
+      <div class="form-group"><label>Número do Processo (CNJ)*</label><input name="numero" id="procNum" value="${p.numero||''}" required></div>
+      <div class="form-group"><label>Cliente*</label><select name="clienteId" id="procClient" required><option value="">Selecione...</option>${clientOpts}</select></div>
+      <div class="form-group"><label>Parte Contrária</label><input name="parteContraria" value="${p.parteContraria||''}"></div>
+      <div class="form-group"><label>Área*</label><select name="area" required>${PROCESS_AREAS.map(a=>`<option ${p.area===a?'selected':''}>${a}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Tribunal</label><input name="tribunal" value="${p.tribunal||''}"></div>
+      <div class="form-group"><label>Vara</label><input name="vara" value="${p.vara||''}"></div>
+      <div class="form-group"><label>Comarca</label><input name="comarca" value="${p.comarca||''}"></div>
+      <div class="form-group"><label>UF</label><input name="uf" value="${p.uf||''}" maxlength="2"></div>
+      <div class="form-group"><label>Data de Distribuição</label><input type="date" name="dataDistribuicao" value="${p.dataDistribuicao||''}"></div>
+      <div class="form-group"><label>Valor da Causa</label><input name="valorCausa" id="procValor" value="${p.valorCausa?money(p.valorCausa):''}"></div>
+      <div class="form-group"><label>Status*</label><select name="status" required>${PROCESS_STATUS.map(s=>`<option ${p.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Prioridade</label><select name="prioridade"><option ${p.prioridade!=='Alta'?'selected':''}>Normal</option><option ${p.prioridade==='Alta'?'selected':''}>Alta</option></select></div>
+      <div class="form-group full"><label>Advogado Responsável</label><input name="advogado" value="${p.advogado||''}"></div>
+      <div class="form-group full"><label>Observações</label><textarea name="observacoes">${p.observacoes||''}</textarea></div>
+    </div>
+  </form>`;
+  const foot=`<button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-gold" onclick="saveProcess()"><i class="fas fa-save"></i> Salvar</button>`;
+  openModal(id?'Editar Processo':'Novo Processo',body,foot);
+  applyMask($('#procNum'),'cnj');
+  applyMask($('#procValor'),'money');
+}
+function saveProcess(){
+  const form=$('#processForm');
+  if(!form.checkValidity()){ form.reportValidity(); return; }
+  const fd=new FormData(form);
+  const obj={};fd.forEach((v,k)=>obj[k]=v.trim());
+  const clientSel=$('#procClient');
+  obj.clienteNome=clientSel.options[clientSel.selectedIndex].dataset.nome||'';
+  obj.valorCausa=parseMoney(obj.valorCausa);
+  if(editingProcessId){ DS.update('processes',editingProcessId,obj); toast('Processo atualizado!','success'); }
+  else{ DS.add('processes',obj); toast('Processo cadastrado!','success'); }
+  closeModal(); renderProcesses(); renderDashboard(); fillProcessFilters();
+}
+function deleteProcess(id){
+  const p=DS.find('processes',id); if(!p) return;
+  confirmDelete(`Excluir o processo "${p.numero}"? Todos os andamentos serão removidos.`,()=>{
+    DS.delete('processes',id);
+    DS.get('movements').filter(m=>m.processId===id).forEach(m=>DS.delete('movements',m.id));
+    toast('Processo excluído.','success'); renderProcesses(); renderDashboard();
+  });
+}
+function openProcessWorkflow(id){
+  const p=DS.find('processes',id); if(!p) return;
+  const movements=DS.get('movements').filter(m=>m.processId===id).sort((a,b)=>new Date(b.data)-new Date(a.data));
+  const tl=movements.length?movements.map(m=>`<div class="timeline-item"><div class="date">${brDateTime(m.data)}</div><span class="type">${m.tipo}</span><div class="desc">${m.descricao}</div></div>`).join(''):'<div class="empty"><i class="fas fa-inbox"></i><p>Nenhum andamento registrado.</p></div>';
+  const body=`
+    <div style="background:var(--bg);padding:16px;border-radius:8px;margin-bottom:18px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;font-size:13px">
+        <div><strong>Nº:</strong> ${p.numero||'-'}</div>
+        <div><strong>Cliente:</strong> ${p.clienteNome||'-'}</div>
+        <div><strong>Parte Contrária:</strong> ${p.parteContraria||'-'}</div>
+        <div><strong>Área:</strong> ${p.area||'-'}</div>
+        <div><strong>Status:</strong> <span class="badge ${statusBadgeClass(p.status)}">${p.status}</span></div>
+        <div><strong>Valor:</strong> ${money(p.valorCausa)}</div>
+        <div><strong>Advogado:</strong> ${p.advogado||'-'}</div>
+        <div><strong>Distribuição:</strong> ${brDate(p.dataDistribuicao)}</div>
+      </div>
+    </div>
+    <h4 style="margin-bottom:12px;color:var(--primary);font-family:'Inter'"><i class="fas fa-plus-circle"></i> Adicionar Andamento</h4>
+    <div class="form-grid" style="margin-bottom:18px">
+      <div class="form-group"><label>Data/Hora</label><input type="datetime-local" id="mvDate" value="${new Date().toISOString().slice(0,16)}"></div>
+      <div class="form-group"><label>Tipo</label><select id="mvType">${MOVEMENT_TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div>
+      <div class="form-group full"><label>Descrição</label><textarea id="mvDesc"></textarea></div>
+    </div>
+    <button class="btn btn-gold" onclick="addMovement('${id}')"><i class="fas fa-plus"></i> Adicionar</button>
+    <hr style="margin:20px 0;border:none;border-top:1px solid var(--border)">
+    <h4 style="margin-bottom:14px;color:var(--primary);font-family:'Inter'"><i class="fas fa-stream"></i> Timeline de Andamentos</h4>
+    <div class="timeline">${tl}</div>
+  `;
+  openModal('Workflow do Processo',body,'<button class="btn btn-ghost" onclick="closeModal()">Fechar</button>');
+}
+function addMovement(pid){
+  const desc=$('#mvDesc').value.trim();
+  if(!desc){ toast('Descreva o andamento.','warning'); return; }
+  DS.add('movements',{processId:pid,data:$('#mvDate').value,tipo:$('#mvType').value,descricao:desc});
+  toast('Andamento registrado!','success');
+  openProcessWorkflow(pid);
+  renderDashboard();
+}
+$('#processSearch').addEventListener('input',renderProcesses);
+$('#filterStatus').addEventListener('change',renderProcesses);
+$('#filterArea').addEventListener('change',renderProcesses);
+$('#filterLawyer').addEventListener('change',renderProcesses);
+
+/* ============ FINANCEIRO ============ */
+let editingRecId=null,editingPayId=null;
+const PAY_METHODS=['Pix','Boleto','Transferência','Cartão','Dinheiro','Cheque'];
+const PAY_CATEGORIES=['Custas','Despesas','Honorários','Impostos','Outros'];
+const FIN_STATUS=['Pendente','Pago','Recebido'];
+function renderReceivables(){
+  const list=DS.get('receivables');
+  if(!list.length){ $('#receivablesTable').innerHTML='<tbody><tr><td colspan="8"><div class="empty"><i class="fas fa-inbox"></i><p>Nenhuma conta a receber.</p></div></td></tr></tbody>'; return; }
+  $('#receivablesTable').innerHTML=`<thead><tr><th>Cliente</th><th>Processo</th><th>Descrição</th><th>Valor</th><th>Vencimento</th><th>Pagamento</th><th>Status</th><th>Ações</th></tr></thead><tbody>${list.map(r=>`<tr><td>${r.cliente||'-'}</td><td>${r.processo||'-'}</td><td>${r.descricao||'-'}</td><td>${money(r.valor)}</td><td>${brDate(r.dataVencimento)}</td><td>${brDate(r.dataPagamento)}</td><td><span class="badge ${r.status.toLowerCase()}">${r.status}</span></td><td><div class="row-actions"><button class="edit" onclick="openReceivableModal('${r.id}')"><i class="fas fa-pen"></i></button><button class="del" onclick="deleteReceivable('${r.id}')"><i class="fas fa-trash"></i></button></div></td></tr>`).join('')}</tbody>`;
+}
+function renderPayables(){
+  const list=DS.get('payables');
+  if(!list.length){ $('#payablesTable').innerHTML='<tbody><tr><td colspan="8"><div class="empty"><i class="fas fa-inbox"></i><p>Nenhuma conta a pagar.</p></div></td></tr></tbody>'; return; }
+  $('#payablesTable').innerHTML=`<thead><tr><th>Fornecedor</th><th>Descrição</th><th>Categoria</th><th>Valor</th><th>Vencimento</th><th>Pagamento</th><th>Status</th><th>Ações</th></tr></thead><tbody>${list.map(r=>`<tr><td>${r.fornecedor||'-'}</td><td>${r.descricao||'-'}</td><td>${r.categoria||'-'}</td><td>${money(r.valor)}</td><td>${brDate(r.dataVencimento)}</td><td>${brDate(r.dataPagamento)}</td><td><span class="badge ${r.status.toLowerCase()}">${r.status}</span></td><td><div class="row-actions"><button class="edit" onclick="openPayableModal('${r.id}')"><i class="fas fa-pen"></i></button><button class="del" onclick="deletePayable('${r.id}')"><i class="fas fa-trash"></i></button></div></td></tr>`).join('')}</tbody>`;
+}
+function openReceivableModal(id){
+  editingRecId=id||null;
+  const r=id?DS.find('receivables',id):{};
+  const procs=DS.get('processes');
+  const body=`<form id="recForm">
+    <div class="form-grid">
+      <div class="form-group"><label>Cliente*</label><input name="cliente" value="${r.cliente||''}" required></div>
+      <div class="form-group"><label>Processo Relacionado</label><select name="processo"><option value="">Nenhum</option>${procs.map(p=>`<option ${r.processo===p.numero?'selected':''}>${p.numero}</option>`).join('')}</select></div>
+      <div class="form-group full"><label>Descrição*</label><input name="descricao" value="${r.descricao||''}" required></div>
+      <div class="form-group"><label>Valor*</label><input name="valor" id="recValor" value="${r.valor?money(r.valor):''}" required></div>
+      <div class="form-group"><label>Data Vencimento</label><input type="date" name="dataVencimento" value="${r.dataVencimento||''}"></div>
+      <div class="form-group"><label>Data Pagamento</label><input type="date" name="dataPagamento" value="${r.dataPagamento||''}"></div>
+      <div class="form-group"><label>Status</label><select name="status">${FIN_STATUS.map(s=>`<option ${r.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Forma de Pagamento</label><select name="formaPagamento">${PAY_METHODS.map(s=>`<option ${r.formaPagamento===s?'selected':''}>${s}</option>`).join('')}</select></div>
+    </div>
+  </form>`;
+  const foot=`<button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-gold" onclick="saveReceivable()"><i class="fas fa-save"></i> Salvar</button>`;
+  openModal(id?'Editar Conta a Receber':'Nova Conta a Receber',body,foot);
+  applyMask($('#recValor'),'money');
+}
+function saveReceivable(){
+  const form=$('#recForm'); if(!form.checkValidity()){ form.reportValidity(); return; }
+  const fd=new FormData(form); const obj={};fd.forEach((v,k)=>obj[k]=v.trim());
+  obj.valor=parseMoney(obj.valor);
+  if(editingRecId){ DS.update('receivables',editingRecId,obj); toast('Conta atualizada!','success'); }
+  else{ DS.add('receivables',obj); toast('Conta cadastrada!','success'); }
+  closeModal(); renderReceivables(); renderDashboard(); renderCashFlow();
+}
+function deleteReceivable(id){ confirmDelete('Excluir esta conta a receber?',()=>{ DS.delete('receivables',id); toast('Conta excluída.','success'); renderReceivables(); renderDashboard(); renderCashFlow(); }); }
+function openPayableModal(id){
+  editingPayId=id||null;
+  const r=id?DS.find('payables',id):{};
+  const body=`<form id="payForm">
+    <div class="form-grid">
+      <div class="form-group"><label>Fornecedor*</label><input name="fornecedor" value="${r.fornecedor||''}" required></div>
+      <div class="form-group"><label>Categoria</label><select name="categoria">${PAY_CATEGORIES.map(s=>`<option ${r.categoria===s?'selected':''}>${s}</option>`).join('')}</select></div>
+      <div class="form-group full"><label>Descrição*</label><input name="descricao" value="${r.descricao||''}" required></div>
+      <div class="form-group"><label>Valor*</label><input name="valor" id="payValor" value="${r.valor?money(r.valor):''}" required></div>
+      <div class="form-group"><label>Data Vencimento</label><input type="date" name="dataVencimento" value="${r.dataVencimento||''}"></div>
+      <div class="form-group"><label>Data Pagamento</label><input type="date" name="dataPagamento" value="${r.dataPagamento||''}"></div>
+      <div class="form-group"><label>Status</label><select name="status">${['Pendente','Pago'].map(s=>`<option ${r.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
+    </div>
+  </form>`;
+  const foot=`<button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-gold" onclick="savePayable()"><i class="fas fa-save"></i> Salvar</button>`;
+  openModal(id?'Editar Conta a Pagar':'Nova Conta a Pagar',body,foot);
+  applyMask($('#payValor'),'money');
+}
+function savePayable(){
+  const form=$('#payForm'); if(!form.checkValidity()){ form.reportValidity(); return; }
+  const fd=new FormData(form); const obj={};fd.forEach((v,k)=>obj[k]=v.trim());
+  obj.valor=parseMoney(obj.valor);
+  if(editingPayId){ DS.update('payables',editingPayId,obj); toast('Conta atualizada!','success'); }
+  else{ DS.add('payables',obj); toast('Conta cadastrada!','success'); }
+  closeModal(); renderPayables(); renderDashboard(); renderCashFlow();
+}
+function deletePayable(id){ confirmDelete('Excluir esta conta a pagar?',()=>{ DS.delete('payables',id); toast('Conta excluída.','success'); renderPayables(); renderDashboard(); renderCashFlow(); }); }
+function renderCashFlow(){
+  const recs=DS.get('receivables'),pays=DS.get('payables');
+  const now=new Date();
+  const entries=recs.filter(r=>r.status==='Recebido').reduce((s,r)=>s+parseMoney(r.valor),0);
+  const exits=pays.filter(p=>p.status==='Pago').reduce((s,p)=>s+parseMoney(p.valor),0);
+  const projEntries=recs.reduce((s,r)=>s+parseMoney(r.valor),0);
+  const projExits=pays.reduce((s,p)=>s+parseMoney(p.valor),0);
+  $('#cashStats').innerHTML=[
+    {ic:'green',icon:'fa-arrow-down',val:money(entries),lbl:'Entradas Realizadas'},
+    {ic:'red',icon:'fa-arrow-up',val:money(exits),lbl:'Saídas Realizadas'},
+    {ic:'gold',icon:'fa-wallet',val:money(entries-exits),lbl:'Saldo Atual'},
+    {ic:'blue',icon:'fa-chart-line',val:money(projEntries-projExits),lbl:'Saldo Projetado'}
+  ].map(s=>`<div class="stat-card"><div class="ic ${s.ic}"><i class="fas ${s.icon}"></i></div><div><div class="val" style="font-size:20px">${s.val}</div><div class="lbl">${s.lbl}</div></div></div>`).join('');
+  // 6 months chart
+  const months=[];
+  for(let i=5;i>=0;i--){ const d=new Date(now.getFullYear(),now.getMonth()-i,1); months.push({y:d.getFullYear(),m:d.getMonth(),label:d.toLocaleDateString('pt-BR',{month:'short'}),e:0,s:0}); }
+  recs.forEach(r=>{ if(r.status==='Recebido'&&r.dataPagamento){ const d=new Date(r.dataPagamento); const m=months.find(x=>x.y===d.getFullYear()&&x.m===d.getMonth()); if(m) m.e+=parseMoney(r.valor); } });
+  pays.forEach(p=>{ if(p.status==='Pago'&&p.dataPagamento){ const d=new Date(p.dataPagamento); const m=months.find(x=>x.y===d.getFullYear()&&x.m===d.getMonth()); if(m) m.s+=parseMoney(p.valor); } });
+  const max=Math.max(...months.map(x=>Math.max(x.e,x.s)),1);
+  $('#cashChart').innerHTML=months.map(x=>`<div class="chart-bar"><div class="bar" style="height:${(x.e/max)*100}%"><span class="val">${x.e?money(x.e).replace('R$ ',''):''}</span></div><div class="bar" style="height:${(x.s/max)*100}%;background:linear-gradient(180deg,var(--danger),#dc2626)"><span class="val">${x.s?money(x.s).replace('R$ ',''):''}</span></div><div class="lbl">${x.label}</div></div>`).join('');
+}
+function generateReport(){
+  const start=$('#repStart').value,end=$('#repEnd').value;
+  if(!start||!end){ toast('Selecione o período.','warning'); return; }
+  const recs=DS.get('receivables').filter(r=>r.dataVencimento>=start&&r.dataVencimento<=end);
+  const pays=DS.get('payables').filter(p=>p.dataVencimento>=start&&p.dataVencimento<=end);
+  const totRec=recs.reduce((s,r)=>s+parseMoney(r.valor),0);
+  const totPay=pays.reduce((s,p)=>s+parseMoney(p.valor),0);
+  $('#reportResult').innerHTML=`
+    <div class="panel" style="box-shadow:none">
+      <div class="panel-head"><h4>Extrato: ${brDate(start)} a ${brDate(end)}</h4></div>
+      <div class="panel-body">
+        <div class="stat-grid">
+          <div class="stat-card"><div class="ic green"><i class="fas fa-arrow-down"></i></div><div><div class="val" style="font-size:20px">${money(totRec)}</div><div class="lbl">Total a Receber</div></div></div>
+          <div class="stat-card"><div class="ic red"><i class="fas fa-arrow-up"></i></div><div><div class="val" style="font-size:20px">${money(totPay)}</div><div class="lbl">Total a Pagar</div></div></div>
+          <div class="stat-card"><div class="ic gold"><i class="fas fa-wallet"></i></div><div><div class="val" style="font-size:20px">${money(totRec-totPay)}</div><div class="lbl">Saldo do Período</div></div></div>
+        </div>
+        <h5 style="margin:16px 0 8px;color:var(--primary);font-family:'Inter'">Contas a Receber (${recs.length})</h5>
+        <div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Descrição</th><th>Valor</th><th>Vencimento</th><th>Status</th></tr></thead><tbody>${recs.length?recs.map(r=>`<tr><td>${r.cliente||'-'}</td><td>${r.descricao||'-'}</td><td>${money(r.valor)}</td><td>${brDate(r.dataVencimento)}</td><td>${r.status}</td></tr>`).join(''):'<tr><td colspan="5" style="text-align:center;color:var(--text-sec)">Nenhum registro</td></tr>'}</tbody></table></div>
+        <h5 style="margin:16px 0 8px;color:var(--primary);font-family:'Inter'">Contas a Pagar (${pays.length})</h5>
+        <div class="table-wrap"><table><thead><tr><th>Fornecedor</th><th>Descrição</th><th>Valor</th><th>Vencimento</th><th>Status</th></tr></thead><tbody>${pays.length?pays.map(r=>`<tr><td>${r.fornecedor||'-'}</td><td>${r.descricao||'-'}</td><td>${money(r.valor)}</td><td>${brDate(r.dataVencimento)}</td><td>${r.status}</td></tr>`).join(''):'<tr><td colspan="5" style="text-align:center;color:var(--text-sec)">Nenhum registro</td></tr>'}</tbody></table></div>
+      </div>
+    </div>`;
+  toast('Relatório gerado!','success');
+}
+
+/* ============ PESSOAL ============ */
+let editingEmpId=null,editingClockId=null;
+function renderEmployees(){
+  const search=$('#empSearch').value.toLowerCase();
+  const dept=$('#empDeptFilter').value;
+  let list=DS.get('employees');
+  if(search) list=list.filter(e=>(e.nome||'').toLowerCase().includes(search)||(e.cargo||'').toLowerCase().includes(search));
+  if(dept) list=list.filter(e=>e.departamento===dept);
+  if(!list.length){ $('#employeesTable').innerHTML='<tbody><tr><td colspan="8"><div class="empty"><i class="fas fa-users-slash"></i><p>Nenhum colaborador cadastrado.</p></div></td></tr></tbody>'; return; }
+  $('#employeesTable').innerHTML=`<thead><tr><th>Nome</th><th>CPF</th><th>Cargo</th><th>Departamento</th><th>Telefone</th><th>Email</th><th>Contratação</th><th>Ações</th></tr></thead><tbody>${list.map(e=>`<tr><td>${e.nome||'-'}</td><td>${e.cpf||'-'}</td><td>${e.cargo||'-'}</td><td>${e.departamento||'-'}</td><td>${e.telefone||'-'}</td><td>${e.email||'-'}</td><td>${brDate(e.dataContratacao)}</td><td><div class="row-actions"><button class="edit" onclick="openEmployeeModal('${e.id}')"><i class="fas fa-pen"></i></button><button class="del" onclick="deleteEmployee('${e.id}')"><i class="fas fa-trash"></i></button></div></td></tr>`).join('')}</tbody>`;
+}
+function openEmployeeModal(id){
+  editingEmpId=id||null;
+  const e=id?DS.find('employees',id):{};
+  const body=`<form id="empForm">
+    <div class="form-grid">
+      <div class="form-group"><label>Nome*</label><input name="nome" value="${e.nome||''}" required></div>
+      <div class="form-group"><label>CPF*</label><input name="cpf" id="empCpf" value="${e.cpf||''}" required></div>
+      <div class="form-group"><label>RG</label><input name="rg" value="${e.rg||''}"></div>
+      <div class="form-group"><label>Data Nascimento</label><input type="date" name="dataNascimento" value="${e.dataNascimento||''}"></div>
+      <div class="form-group"><label>Cargo*</label><input name="cargo" value="${e.cargo||''}" required></div>
+      <div class="form-group"><label>Departamento</label><select name="departamento">${['Administrativo','Jurídico','Financeiro','Secretaria'].map(d=>`<option ${e.departamento===d?'selected':''}>${d}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Telefone</label><input name="telefone" id="empTel" value="${e.telefone||''}"></div>
+      <div class="form-group"><label>Email</label><input name="email" type="email" value="${e.email||''}"></div>
+      <div class="form-group full"><label>Endereço</label><input name="endereco" value="${e.endereco||''}"></div>
+      <div class="form-group"><label>Data Contratação</label><input type="date" name="dataContratacao" value="${e.dataContratacao||''}"></div>
+      <div class="form-group"><label>Salário</label><input name="salario" id="empSal" value="${e.salario?money(e.salario):''}"></div>
+      <div class="form-group"><label>Status</label><select name="status"><option ${e.status!=='Inativo'?'selected':''}>Ativo</option><option ${e.status==='Inativo'?'selected':''}>Inativo</option></select></div>
+      <div class="form-group full"><label>Observações</label><textarea name="observacoes">${e.observacoes||''}</textarea></div>
+    </div>
+  </form>`;
+  const foot=`<button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-gold" onclick="saveEmployee()"><i class="fas fa-save"></i> Salvar</button>`;
+  openModal(id?'Editar Colaborador':'Novo Colaborador',body,foot);
+  applyMask($('#empCpf'),'cpf');
+  applyMask($('#empTel'),'phone');
+  applyMask($('#empSal'),'money');
+}
+function saveEmployee(){
+  const form=$('#empForm'); if(!form.checkValidity()){ form.reportValidity(); return; }
+  const fd=new FormData(form); const obj={};fd.forEach((v,k)=>obj[k]=v.trim());
+  if(!validCPF(obj.cpf)){ toast('CPF inválido.','error'); return; }
+  obj.salario=parseMoney(obj.salario);
+  if(editingEmpId){ DS.update('employees',editingEmpId,obj); toast('Colaborador atualizado!','success'); }
+  else{ DS.add('employees',obj); toast('Colaborador cadastrado!','success'); }
+  closeModal(); renderEmployees();
+}
+function deleteEmployee(id){ const e=DS.find('employees',id); if(!e) return; confirmDelete(`Excluir colaborador "${e.nome}"?`,()=>{ DS.delete('employees',id); toast('Colaborador excluído.','success'); renderEmployees(); }); }
+function renderClocks(){
+  const list=DS.get('clocks').sort((a,b)=>new Date(b.dataHora)-new Date(a.dataHora)).slice(0,30);
+  if(!list.length){ $('#clockTable').innerHTML='<tbody><tr><td colspan="5"><div class="empty"><i class="fas fa-clock"></i><p>Nenhum registro de ponto.</p></div></td></tr></tbody>'; return; }
+  $('#clockTable').innerHTML=`<thead><tr><th>Colaborador</th><th>Tipo</th><th>Data/Hora</th><th>Observação</th><th>Ações</th></tr></thead><tbody>${list.map(c=>`<tr><td>${c.colaborador||'-'}</td><td><span class="badge ${c.tipo==='Entrada'?'active':'down'}">${c.tipo}</span></td><td>${brDateTime(c.dataHora)}</td><td>${c.observacao||'-'}</td><td><div class="row-actions"><button class="del" onclick="deleteClock('${c.id}')"><i class="fas fa-trash"></i></button></div></td></tr>`).join('')}</tbody>`;
+}
+function openClockModal(){
+  const emps=DS.get('employees');
+  const body=`<form id="clockForm">
+    <div class="form-grid">
+      <div class="form-group"><label>Colaborador*</label><select name="colaborador" required><option value="">Selecione...</option>${emps.map(e=>`<option>${e.nome}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Tipo*</label><select name="tipo"><option>Entrada</option><option>Saída</option></select></div>
+      <div class="form-group"><label>Data/Hora</label><input type="datetime-local" name="dataHora" value="${new Date().toISOString().slice(0,16)}"></div>
+      <div class="form-group full"><label>Observação</label><input name="observacao"></div>
+    </div>
+  </form>`;
+  const foot=`<button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-gold" onclick="saveClock()"><i class="fas fa-save"></i> Registrar</button>`;
+  openModal('Registrar Ponto',body,foot);
+}
+function saveClock(){
+  const form=$('#clockForm'); if(!form.checkValidity()){ form.reportValidity(); return; }
+  const fd=new FormData(form); const obj={};fd.forEach((v,k)=>obj[k]=v.trim());
+  DS.add('clocks',obj); toast('Ponto registrado!','success'); closeModal(); renderClocks();
+}
+function deleteClock(id){ confirmDelete('Excluir este registro de ponto?',()=>{ DS.delete('clocks',id); toast('Registro excluído.','success'); renderClocks(); }); }
+$('#empSearch').addEventListener('input',renderEmployees);
+$('#empDeptFilter').addEventListener('change',renderEmployees);
+
+/* ============ CONFIGURAÇÕES ============ */
+function loadOfficeConfig(){
+  const cfg=(DS.get('config')[0]||{});
+  const form=$('#officeForm');
+  if(form){ ['nome','endereco','telefone','email','cnpj'].forEach(k=>{ if(form[k]) form[k].value=cfg[k]||''; }); }
+  applyMask($('#officeCnpj'),'cnpj');
+}
+$('#officeForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const fd=new FormData(e.target); const obj={};fd.forEach((v,k)=>obj[k]=v.trim());
+  const existing=DS.get('config');
+  if(existing.length) DS.update('config',existing[0].id,obj);
+  else DS.add('config',obj);
+  toast('Dados do escritório salvos!','success');
+});
+$('#passForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const cur=$('#curPass').value,np=$('#newPass').value,cp=$('#confPass').value;
+  const auth=DS.get('auth')[0];
+  if(cur!==auth.pass){ toast('Senha atual incorreta.','error'); return; }
+  if(np.length<6){ toast('Nova senha deve ter ao menos 6 caracteres.','warning'); return; }
+  if(np!==cp){ toast('As senhas não conferem.','error'); return; }
+  DS.update('auth',auth.id,{pass:np});
+  toast('Senha alterada com sucesso!','success');
+  e.target.reset();
+});
+function backupData(){
+  const data=DS.exportAll();
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='backup_cristo_adv_'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+  toast('Backup exportado!','success');
+}
+function restoreData(event){
+  const file=event.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      confirmDelete('Restaurar dados substituirá todas as informações atuais. Continuar?',()=>{
+        DS.importAll(data);
+        toast('Dados restaurados! Recarregando...','success');
+        setTimeout(()=>location.reload(),1200);
+      });
+    }catch(err){ toast('Arquivo inválido.','error'); }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+/* ============ 404 ============ */
+function goHome404(){ $('#notFound').classList.remove('active'); window.location.hash=''; }
+function checkHash(){
+  const h=window.location.hash.replace('#','');
+  const valid=['','home','areas','sobre','contato'];
+  if(h && !valid.includes(h) && !sessionStorage.getItem('cristo_logged')){
+    $('#notFound').classList.add('active');
+  }
+}
+
+/* ============ INIT ============ */
+function renderAll(){
+  renderDashboard();
+  renderClients();
+  fillProcessFilters();
+  renderProcesses();
+  renderReceivables();
+  renderPayables();
+  renderCashFlow();
+  renderEmployees();
+  renderClocks();
+  loadOfficeConfig();
+}
+renderSite();
+checkHash();
+window.addEventListener('hashchange',checkHash);
+if(sessionStorage.getItem('cristo_logged')==='1'){ enterAdmin(); }
+</script>
+</body>
+</html>
